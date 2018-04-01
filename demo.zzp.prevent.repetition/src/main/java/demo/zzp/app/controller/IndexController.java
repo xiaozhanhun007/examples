@@ -31,6 +31,7 @@ public class IndexController {
 	@PreventRepetitionAnnotation
 	public String add(HttpServletRequest request){
 		try {
+			//模拟执行业务逻辑需要的时间
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();

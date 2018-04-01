@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  	<meta charset="utf-8"/>
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  	<meta http-equiv="pragma" content="no-cache"/> 
+		<meta http-equiv="cache-control" content="no-cache"/>
+		<meta http-equiv="expires" content="0"/>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+		<meta name="MobileOptimized" content="240"/>
+		<meta name="apple-touch-fullscreen" content="YES"/>
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+</head>
+	<body>
+		<div >
+			<input id = "name" name = "name" type="text"/>
+			<input type="hidden" th:value="${token}" name="token" id="token"/>
+			<button id="submit">确定</button>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jQuery/jquery-2.2.3.min.js"></script>
+	<script type="text/javascript">
+		$("#submit").on("click",function(){
+			var data = {};
+			data.name = $("#name").val();
+			data.token = $("#token").val();
+			$.ajax({
+				url:"/add",
+				type:"post",
+				data: data,
+				dataType : 'json',
+				success: function(result){
+//					console.info(result);
+					if(result.success == true){
+						alert(result.msg);
+					}else{
+						alert(result.msg);
+					}
+				}
+			});
+		});
+	</script>
+</html>

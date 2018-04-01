@@ -14,7 +14,7 @@ import demo.zzp.app.aop.annotation.PreventRepetitionAnnotation;
 
 /**
  * index的控制层
- * @author zzp 2018.03.12
+ * @author karyzeng 2018.03.12
  * @version 1.0
  */
 @Controller

@@ -8,6 +8,11 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+/**
+ * JedisUtils工具类
+ * @author karyzeng 2018.04.01
+ * @version 1.0
+ */
 @Component
 public class JedisUtils {
 

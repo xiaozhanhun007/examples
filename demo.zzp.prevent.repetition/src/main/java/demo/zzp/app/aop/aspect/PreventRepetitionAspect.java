@@ -17,7 +17,7 @@ import demo.zzp.app.redis.JedisUtils;
 
 /**
  * 防止重复提交操作AOP类
- * @author zzp 2018.03.10
+ * @author karyzeng 2018.03.10
  * @version 1.0
  */
 @Aspect

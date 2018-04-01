@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * 防止重复提交注解
- * @author zzp 2018.03.11
+ * @author karyzeng 2018.03.11
  * @version 1.0
  */
 @Retention(RetentionPolicy.RUNTIME) // 在运行时可以获取

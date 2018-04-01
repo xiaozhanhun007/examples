@@ -10,7 +10,7 @@ import redis.clients.jedis.JedisPoolConfig;
 
 /**
  * Jedis配置文件
- * @author zzp 2018.03.06
+ * @author karyzeng 2018.03.06
  * @version 1.0
  */
 @Configuration

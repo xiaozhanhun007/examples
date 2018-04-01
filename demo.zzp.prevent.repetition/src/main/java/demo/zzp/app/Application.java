@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 启动类
- * @author zzp
- * @since 2018.03.04
+ * @author karyzeng 2018.03.04
+ * @version 1.0
  */
 @Configuration  
 @EnableAutoConfiguration  

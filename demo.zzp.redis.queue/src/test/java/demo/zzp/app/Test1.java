@@ -19,7 +19,15 @@ public class Test1 {
 	@Test
 	public void test1() {
 		String key = "C11223";
-		System.out.println(redisQueue.getNumber(key, 4));
+		String number = redisQueue.getNumber(key, 3);
+		System.out.println(Thread.currentThread().getName() + ":" + number);
+		NumberThread numberThread = new NumberThread(redisQueue, key, 4);
+		Thread thread1 = new Thread(numberThread);
+		Thread thread2 = new Thread(numberThread);
+		Thread thread3 = new Thread(numberThread);
+		thread1.start();
+		thread2.start();
+		thread3.start();
 	}
 
 }

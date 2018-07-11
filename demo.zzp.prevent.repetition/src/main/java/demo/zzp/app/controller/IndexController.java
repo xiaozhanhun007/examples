@@ -23,6 +23,7 @@ public class IndexController {
 	@RequestMapping(value = "/index",method = RequestMethod.GET)
 	@PreventRepetitionAnnotation
 	public String toIndex(HttpServletRequest request,Map<String, Object> map){
+		
 		return "form";
 	}
 	

@@ -18,7 +18,7 @@ public class Test {
 		Teacher teacher2 = new Teacher();
 		teacher2.setName("李四海");
 		teacher2.setAge(25);
-		teacher2.setAmount(new BigDecimal(12345.66));
+		teacher2.setAmount(new BigDecimal(12345.667));
 		
 		try {
 			List<Map<String, Object>> list = CompareUtils.compareTwoClass(teacher1, teacher2);

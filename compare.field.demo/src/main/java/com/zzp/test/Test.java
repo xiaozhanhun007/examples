@@ -7,6 +7,11 @@ import java.util.Map;
 import com.zzp.beans.Teacher;
 import com.zzp.util.CompareUtils;
 
+/**
+ * 测试类
+ * @author Gary Zeng
+ * @since 2018.07.12
+ */
 public class Test {
 
 	public static void main(String[] args) {

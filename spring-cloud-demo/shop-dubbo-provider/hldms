@@ -1,3 +1,0 @@
-#Dubbo Registry Cache
-#Wed Aug 15 15:03:32 CST 2018
-shop/com.hoolinks.dubbo.api.ShopService=empty\://192.168.100.108\:20899/com.hoolinks.dubbo.api.ShopService?anyhost\=true&application\=shop-dubbo-provider&category\=configurators&check\=false&dubbo\=2.8.4&generic\=false&group\=shop&interface\=com.hoolinks.dubbo.api.ShopService&methods\=buy&pid\=18008&retries\=0&side\=provider&timestamp\=1534316612284

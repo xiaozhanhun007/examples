@@ -1,7 +1,6 @@
 package com.zzp.test;
 
 import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
 
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;

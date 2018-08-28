@@ -9,6 +9,13 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * http请求工具类
+ * 
+ * @author karyzeng
+ * @since 2018.08.28
+ *
+ */
 public class HttpRequest {
 
 	public static void main(String[] args) {

@@ -29,7 +29,7 @@ public class HttpRequest {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("method", "GetVehicleNoList");
 		params.put("appkey", "30914b89-262a-4832-b8b9-fe33770b4b4d");
-		params.put("timestamp", "2018-08-29 10:13:36");
+		params.put("timestamp", "2018-08-29 16:35:36");
 		params.put("format", "json");
 		System.out.println(HttpRequest.sendGet("http://api.e6gps.com/public/v3/StatisticsReport/Call", "69411cff-d7be-4458-952f-2fca0267b408", params));
 	}

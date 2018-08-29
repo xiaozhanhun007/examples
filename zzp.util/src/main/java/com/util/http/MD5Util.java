@@ -10,38 +10,39 @@ import java.security.MessageDigest;
  */
 public class MD5Util {
 
-	/** 
+    /** 
      * MD5加码 生成32位md5码 
      * 
      * @param str 要进行MD5的字符串
      * 
      * @return String
-     */  
-    public static String string2MD5(String str){  
-        MessageDigest md5 = null;  
-        try{  
-            md5 = MessageDigest.getInstance("MD5");  
-        }catch (Exception e){  
-            System.out.println(e.toString());  
-            e.printStackTrace();  
-            return "";  
-        }  
-        char[] charArray = str.toCharArray();  
-        byte[] byteArray = new byte[charArray.length];  
-  
-        for (int i = 0; i < charArray.length; i++)  
-            byteArray[i] = (byte) charArray[i];  
-        byte[] md5Bytes = md5.digest(byteArray);  
-        StringBuffer hexValue = new StringBuffer();  
-        for (int i = 0; i < md5Bytes.length; i++){  
-            int val = ((int) md5Bytes[i]) & 0xff;  
-            if (val < 16)  
-                hexValue.append("0");  
-            hexValue.append(Integer.toHexString(val));  
-        }  
-        return hexValue.toString();  
-  
-    }  
+     */ 
+    public static String string2MD5(String str) {
+		String result = "";
+		MessageDigest md5 = null;
+		try {
+			md5 = MessageDigest.getInstance("MD5");
+			//将str的编码设置为utf-8，避免中文出现MD5不一致的情况
+			md5.update(str.getBytes("UTF-8"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		byte b[] = md5.digest();
+		int i;
+		StringBuffer buf = new StringBuffer("");
+		for (int offset = 0; offset < b.length; offset++) {
+			i = b[offset];
+			if (i < 0)
+				i += 256;
+			if (i < 16)
+				buf.append("0");
+			buf.append(Integer.toHexString(i));
+		}
+		result = buf.toString();
+ 
+		return result;
+	}
   
     /** 
      * 加密解密算法 执行一次加密，两次解密 
@@ -62,7 +63,7 @@ public class MD5Util {
     }  
   
     public static void main(String args[]) {  
-        String s = new String("tangfuqiang");  
+        String s = new String("粤BAD548");  
         System.out.println("原始：" + s);  
         System.out.println("MD5后：" + string2MD5(s));  
         System.out.println("加密的：" + convertMD5(s));  

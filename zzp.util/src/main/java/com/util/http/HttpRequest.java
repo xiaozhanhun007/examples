@@ -99,18 +99,13 @@ public class HttpRequest {
     	String sign = getSign(appsecret, params);
     	StringBuffer sBuffer = new StringBuffer();
     	for (Map.Entry<String, String> entry : params.entrySet()) {
-    		if (entry.getKey().equals("timestamp")) {
-    			//timestamp时间字符串格式是2018-08-29 10:13:36，包含有空格，需要先对含有空格的参数进行处理
-				String value = "";
-    			try {
-					value = URLEncoder.encode(entry.getValue(),"utf-8");
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-    			sBuffer.append(entry.getKey() + "=" + value + "&");
-			} else {
-				sBuffer.append(entry.getKey() + "=" + entry.getValue() + "&");
+    		String value = "";
+			try {
+				value = URLEncoder.encode(entry.getValue(),"utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
 			}
+			sBuffer.append(entry.getKey() + "=" + value + "&");
     	}
     	sBuffer.append("sign=" +sign);
     	return sendGet(url, sBuffer.toString());

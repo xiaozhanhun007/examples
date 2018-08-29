@@ -4,10 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.util.mapsort.MapSort;
 
 /**
  * http请求工具类
@@ -19,7 +24,14 @@ import java.util.Map;
 public class HttpRequest {
 
 	public static void main(String[] args) {
-		System.out.println(HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=广东省广州市天河区华景新城东区华景二期粤生街98号405&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R"));
+//		System.out.println(HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=广东省广州市天河区华景新城东区华景二期粤生街98号405&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R"));
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("method", "GetVehicleNoList");
+		params.put("appkey", "30914b89-262a-4832-b8b9-fe33770b4b4d");
+		params.put("timestamp", "2018-08-29 10:13:36");
+		params.put("format", "json");
+		System.out.println(HttpRequest.sendGet("http://api.e6gps.com/public/v3/StatisticsReport/Call", "69411cff-d7be-4458-952f-2fca0267b408", params));
 	}
 	
 	/**
@@ -35,6 +47,7 @@ public class HttpRequest {
         BufferedReader in = null;
         try {
             String urlNameString = url + "?" + param;
+            System.out.println(urlNameString);
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
             URLConnection connection = realUrl.openConnection();
@@ -71,6 +84,55 @@ public class HttpRequest {
             }
         }
         return result;
+    }
+    
+    /**
+     * 向指定URL发送GET方法的请求
+     * 
+     * @param url 发送请求的URL
+     * @param appsecret 私钥
+     * @param params 签名参数自动生成，不需要传入
+     * 
+     * @return String 响应结果
+     */
+    public static String sendGet(String url, String appsecret, Map<String, String> params){
+    	String sign = getSign(appsecret, params);
+    	StringBuffer sBuffer = new StringBuffer();
+    	for (Map.Entry<String, String> entry : params.entrySet()) {
+    		if (entry.getKey().equals("timestamp")) {
+    			//timestamp时间字符串格式是2018-08-29 10:13:36，包含有空格，需要先对含有空格的参数进行处理
+				String value = "";
+    			try {
+					value = URLEncoder.encode(entry.getValue(),"utf-8");
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+    			sBuffer.append(entry.getKey() + "=" + value + "&");
+			} else {
+				sBuffer.append(entry.getKey() + "=" + entry.getValue() + "&");
+			}
+    	}
+    	sBuffer.append("sign=" +sign);
+    	return sendGet(url, sBuffer.toString());
+    }
+    
+    /**
+     * 获得签名sign
+     * 
+     * @param appsecret 私钥
+     * @param params 签名参数sign自动生成，不需要传入
+     * 
+     * @return String 签名sign
+     */
+    public static String getSign(String appsecret, Map<String, String> params) {
+    	Map<String, String> sortMap = MapSort.sortMapByKey(params);
+    	StringBuffer sBuffer = new StringBuffer();
+    	sBuffer.append(appsecret);
+    	for (Map.Entry<String, String> entry : sortMap.entrySet()) {
+    		sBuffer.append(entry.getKey() + entry.getValue());
+    	}
+    	sBuffer.append(appsecret);
+    	return MD5Util.string2MD5(sBuffer.toString()).toUpperCase();
     }
     
     /**

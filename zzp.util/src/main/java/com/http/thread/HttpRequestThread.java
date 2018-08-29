@@ -2,6 +2,8 @@ package com.http.thread;
 
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.util.http.HttpRequest;
 
 /**
@@ -29,6 +31,21 @@ public class HttpRequestThread implements Runnable{
 	public void run() {
 		String result = HttpRequest.sendGet(url, appsecret, params);
 		System.out.println(Thread.currentThread() + "：" + result);
+		JSONObject jsonObject = JSONObject.parseObject(result);
+		JSONObject resultJson = jsonObject.getJSONObject("result");
+		JSONArray datas = resultJson.getJSONArray("data");
+		if (datas != null && datas.size() > 0) {
+			for (int i = 0; i < datas.size(); i++) {
+				JSONObject data = datas.getJSONObject(i);
+				String vehicle = data.getString("Vehicle");
+				String gpsTime = data.getString("GPSTime");
+				String placeName = data.getString("PlaceName");
+				String roadName = data.getString("RoadName");
+				double lon = Double.parseDouble(data.getString("Lon02"));
+				double lat = Double.parseDouble(data.getString("Lat02"));
+				System.out.println("车牌号：" + vehicle + "，gpsTime：" + gpsTime + "，区域：" + placeName + "，道路：" + roadName + "，经度：" + lat + "，纬度：" + lon);
+			}
+		}
 	}
 	
 }

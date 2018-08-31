@@ -55,6 +55,10 @@ public class HttpRequest {
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            //设置连接超时时间，必须设置，否则会让程序卡在请求连接
+            connection.setConnectTimeout(15000);
+            //设置读超时时间，必须设置，否则会让程序卡在读内容中
+            connection.setReadTimeout(15000);
             // 建立实际的连接
             connection.connect();
             // 获取所有响应头字段
@@ -150,6 +154,10 @@ public class HttpRequest {
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            //设置连接超时时间，必须设置，否则会让程序卡在请求连接
+            conn.setConnectTimeout(15000);
+            //设置读超时时间，必须设置，否则会让程序卡在读内容中
+            conn.setReadTimeout(15000);
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);

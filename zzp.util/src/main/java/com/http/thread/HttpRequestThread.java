@@ -6,8 +6,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.util.http.HttpRequest;
 
+
 /**
- * ÇëÇóhttpÏß³Ì
+ * è¯·æ±‚httpçº¿ç¨‹
  * 
  * @author zzp
  * @since 2018.08.29
@@ -30,7 +31,7 @@ public class HttpRequestThread implements Runnable{
 	@Override
 	public void run() {
 		String result = HttpRequest.sendGet(url, appsecret, params);
-		System.out.println(Thread.currentThread() + "£º" + result);
+		System.out.println(Thread.currentThread() + "ï¼š" + result);
 		JSONObject jsonObject = JSONObject.parseObject(result);
 		JSONObject resultJson = jsonObject.getJSONObject("result");
 		JSONArray datas = resultJson.getJSONArray("data");
@@ -43,7 +44,7 @@ public class HttpRequestThread implements Runnable{
 				String roadName = data.getString("RoadName");
 				double lon = Double.parseDouble(data.getString("Lon02"));
 				double lat = Double.parseDouble(data.getString("Lat02"));
-				System.out.println("³µÅÆºÅ£º" + vehicle + "£¬gpsTime£º" + gpsTime + "£¬ÇøÓò£º" + placeName + "£¬µÀÂ·£º" + roadName + "£¬¾­¶È£º" + lat + "£¬Î³¶È£º" + lon);
+				System.out.println("è½¦ç‰Œå·ï¼š" + vehicle + "ï¼ŒgpsTimeï¼š" + gpsTime + "ï¼ŒåŒºåŸŸï¼š" + placeName + "ï¼Œé“è·¯ï¼š" + roadName + "ï¼Œç»åº¦ï¼š" + lat + "ï¼Œçº¬åº¦ï¼š" + lon);
 			}
 		}
 	}

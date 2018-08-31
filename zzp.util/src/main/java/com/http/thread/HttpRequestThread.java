@@ -10,7 +10,7 @@ import com.util.http.HttpRequest;
 /**
  * 请求http线程
  * 
- * @author zzp
+ * @author karyzeng
  * @since 2018.08.29
  *
  */

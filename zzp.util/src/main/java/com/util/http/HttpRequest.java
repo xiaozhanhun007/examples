@@ -15,7 +15,7 @@ import java.util.Map;
 import com.util.mapsort.MapSort;
 
 /**
- * httpÇëÇó¹¤¾ßÀà
+ * httpè¯·æ±‚å·¥å…·ç±»
  * 
  * @author karyzeng
  * @since 2018.08.28
@@ -24,7 +24,7 @@ import com.util.mapsort.MapSort;
 public class HttpRequest {
 
 	public static void main(String[] args) {
-//		System.out.println(HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=¹ã¶«Ê¡¹ãÖİÊĞÌìºÓÇø»ª¾°ĞÂ³Ç¶«Çø»ª¾°¶şÆÚÔÁÉú½Ö98ºÅ405&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R"));
+//		System.out.println(HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=å¹¿ä¸œçœå¹¿å·å¸‚å¤©æ²³åŒºåæ™¯æ–°åŸä¸œåŒºåæ™¯äºŒæœŸç²¤ç”Ÿè¡—98å·405&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R"));
 		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("method", "GetVehicleNoList");
@@ -35,12 +35,12 @@ public class HttpRequest {
 	}
 	
 	/**
-     * ÏòÖ¸¶¨URL·¢ËÍGET·½·¨µÄÇëÇó
+     * å‘æŒ‡å®šURLå‘é€GETæ–¹æ³•çš„è¯·æ±‚
      * 
-     * @param url ·¢ËÍÇëÇóµÄURL
-     * @param param ÇëÇó²ÎÊı£¬ÇëÇó²ÎÊıÓ¦¸ÃÊÇ name1=value1&name2=value2 µÄĞÎÊ½
+     * @param url å‘é€è¯·æ±‚çš„URL
+     * @param param è¯·æ±‚å‚æ•°ï¼Œè¯·æ±‚å‚æ•°åº”è¯¥æ˜¯ name1=value1&name2=value2 çš„å½¢å¼
      * 
-     * @return String ÏìÓ¦½á¹û
+     * @return String å“åº”ç»“æœ
      */
     public static String sendGet(String url, String param) {
         String result = "";
@@ -49,35 +49,35 @@ public class HttpRequest {
             String urlNameString = url + "?" + param;
             System.out.println(urlNameString);
             URL realUrl = new URL(urlNameString);
-            // ´ò¿ªºÍURLÖ®¼äµÄÁ¬½Ó
+            // æ‰“å¼€å’ŒURLä¹‹é—´çš„è¿æ¥
             URLConnection connection = realUrl.openConnection();
-            // ÉèÖÃÍ¨ÓÃµÄÇëÇóÊôĞÔ
+            // è®¾ç½®é€šç”¨çš„è¯·æ±‚å±æ€§
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            //ÉèÖÃÁ¬½Ó³¬Ê±Ê±¼ä£¬±ØĞëÉèÖÃ£¬·ñÔò»áÈÃ³ÌĞò¿¨ÔÚÇëÇóÁ¬½Ó
+            //è®¾ç½®è¿æ¥è¶…æ—¶æ—¶é—´ï¼Œå¿…é¡»è®¾ç½®ï¼Œå¦åˆ™ä¼šè®©ç¨‹åºå¡åœ¨è¯·æ±‚è¿æ¥
             connection.setConnectTimeout(15000);
-            //ÉèÖÃ¶Á³¬Ê±Ê±¼ä£¬±ØĞëÉèÖÃ£¬·ñÔò»áÈÃ³ÌĞò¿¨ÔÚ¶ÁÄÚÈİÖĞ
+            //è®¾ç½®è¯»è¶…æ—¶æ—¶é—´ï¼Œå¿…é¡»è®¾ç½®ï¼Œå¦åˆ™ä¼šè®©ç¨‹åºå¡åœ¨è¯»å†…å®¹ä¸­
             connection.setReadTimeout(15000);
-            // ½¨Á¢Êµ¼ÊµÄÁ¬½Ó
+            // å»ºç«‹å®é™…çš„è¿æ¥
             connection.connect();
-            // »ñÈ¡ËùÓĞÏìÓ¦Í·×Ö¶Î
+            // è·å–æ‰€æœ‰å“åº”å¤´å­—æ®µ
             Map<String, List<String>> map = connection.getHeaderFields();
-            // ±éÀúËùÓĞµÄÏìÓ¦Í·×Ö¶Î
+            // éå†æ‰€æœ‰çš„å“åº”å¤´å­—æ®µ
             for (String key : map.keySet()) {
                 System.out.println(key + "--->" + map.get(key));
             }
-            // ¶¨Òå BufferedReaderÊäÈëÁ÷À´¶ÁÈ¡URLµÄÏìÓ¦
+            // å®šä¹‰ BufferedReaderè¾“å…¥æµæ¥è¯»å–URLçš„å“åº”
             in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
             String line;
             while ((line = in.readLine()) != null) {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("·¢ËÍGETÇëÇó³öÏÖÒì³££¡" + e);
+            System.out.println("å‘é€GETè¯·æ±‚å‡ºç°å¼‚å¸¸ï¼" + e);
             e.printStackTrace();
         }
-        // Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊäÈëÁ÷
+        // ä½¿ç”¨finallyå—æ¥å…³é—­è¾“å…¥æµ
         finally {
             try {
                 if (in != null) {
@@ -91,13 +91,13 @@ public class HttpRequest {
     }
     
     /**
-     * ÏòÖ¸¶¨URL·¢ËÍGET·½·¨µÄÇëÇó
+     * å‘æŒ‡å®šURLå‘é€GETæ–¹æ³•çš„è¯·æ±‚
      * 
-     * @param url ·¢ËÍÇëÇóµÄURL
-     * @param appsecret Ë½Ô¿
-     * @param params Ç©Ãû²ÎÊı×Ô¶¯Éú³É£¬²»ĞèÒª´«Èë
+     * @param url å‘é€è¯·æ±‚çš„URL
+     * @param appsecret ç§é’¥
+     * @param params ç­¾åå‚æ•°è‡ªåŠ¨ç”Ÿæˆï¼Œä¸éœ€è¦ä¼ å…¥
      * 
-     * @return String ÏìÓ¦½á¹û
+     * @return String å“åº”ç»“æœ
      */
     public static String sendGet(String url, String appsecret, Map<String, String> params){
     	String sign = getSign(appsecret, params);
@@ -116,12 +116,12 @@ public class HttpRequest {
     }
     
     /**
-     * »ñµÃÇ©Ãûsign
+     * è·å¾—ç­¾åsign
      * 
-     * @param appsecret Ë½Ô¿
-     * @param params Ç©Ãû²ÎÊısign×Ô¶¯Éú³É£¬²»ĞèÒª´«Èë
+     * @param appsecret ç§é’¥
+     * @param params ç­¾åå‚æ•°signè‡ªåŠ¨ç”Ÿæˆï¼Œä¸éœ€è¦ä¼ å…¥
      * 
-     * @return String Ç©Ãûsign
+     * @return String ç­¾åsign
      */
     public static String getSign(String appsecret, Map<String, String> params) {
     	Map<String, String> sortMap = MapSort.sortMapByKey(params);
@@ -135,12 +135,12 @@ public class HttpRequest {
     }
     
     /**
-     * ÏòÖ¸¶¨ URL ·¢ËÍPOST·½·¨µÄÇëÇó
+     * å‘æŒ‡å®š URL å‘é€POSTæ–¹æ³•çš„è¯·æ±‚
      * 
-     * @param url ·¢ËÍÇëÇóµÄ URL
-     * @param param ÇëÇó²ÎÊı£¬ÇëÇó²ÎÊıÓ¦¸ÃÊÇ name1=value1&name2=value2 µÄĞÎÊ½
+     * @param url å‘é€è¯·æ±‚çš„ URL
+     * @param param è¯·æ±‚å‚æ•°ï¼Œè¯·æ±‚å‚æ•°åº”è¯¥æ˜¯ name1=value1&name2=value2 çš„å½¢å¼
      * 
-     * @return String ÏìÓ¦½á¹û
+     * @return String å“åº”ç»“æœ
      */
     public static String sendPost(String url, String param) {
         PrintWriter out = null;
@@ -148,36 +148,36 @@ public class HttpRequest {
         String result = "";
         try {
             URL realUrl = new URL(url);
-            // ´ò¿ªºÍURLÖ®¼äµÄÁ¬½Ó
+            // æ‰“å¼€å’ŒURLä¹‹é—´çš„è¿æ¥
             URLConnection conn = realUrl.openConnection();
-            // ÉèÖÃÍ¨ÓÃµÄÇëÇóÊôĞÔ
+            // è®¾ç½®é€šç”¨çš„è¯·æ±‚å±æ€§
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            //ÉèÖÃÁ¬½Ó³¬Ê±Ê±¼ä£¬±ØĞëÉèÖÃ£¬·ñÔò»áÈÃ³ÌĞò¿¨ÔÚÇëÇóÁ¬½Ó
+            //è®¾ç½®è¿æ¥è¶…æ—¶æ—¶é—´ï¼Œå¿…é¡»è®¾ç½®ï¼Œå¦åˆ™ä¼šè®©ç¨‹åºå¡åœ¨è¯·æ±‚è¿æ¥
             conn.setConnectTimeout(15000);
-            //ÉèÖÃ¶Á³¬Ê±Ê±¼ä£¬±ØĞëÉèÖÃ£¬·ñÔò»áÈÃ³ÌĞò¿¨ÔÚ¶ÁÄÚÈİÖĞ
+            //è®¾ç½®è¯»è¶…æ—¶æ—¶é—´ï¼Œå¿…é¡»è®¾ç½®ï¼Œå¦åˆ™ä¼šè®©ç¨‹åºå¡åœ¨è¯»å†…å®¹ä¸­
             conn.setReadTimeout(15000);
-            // ·¢ËÍPOSTÇëÇó±ØĞëÉèÖÃÈçÏÂÁ½ĞĞ
+            // å‘é€POSTè¯·æ±‚å¿…é¡»è®¾ç½®å¦‚ä¸‹ä¸¤è¡Œ
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            // »ñÈ¡URLConnection¶ÔÏó¶ÔÓ¦µÄÊä³öÁ÷
+            // è·å–URLConnectionå¯¹è±¡å¯¹åº”çš„è¾“å‡ºæµ
             out = new PrintWriter(conn.getOutputStream());
-            // ·¢ËÍÇëÇó²ÎÊı
+            // å‘é€è¯·æ±‚å‚æ•°
             out.print(param);
-            // flushÊä³öÁ÷µÄ»º³å
+            // flushè¾“å‡ºæµçš„ç¼“å†²
             out.flush();
-            // ¶¨ÒåBufferedReaderÊäÈëÁ÷À´¶ÁÈ¡URLµÄÏìÓ¦
+            // å®šä¹‰BufferedReaderè¾“å…¥æµæ¥è¯»å–URLçš„å“åº”
             in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
             String line;
             while ((line = in.readLine()) != null) {
                 result += line;
             }
         } catch (Exception e) {
-            System.out.println("·¢ËÍ POST ÇëÇó³öÏÖÒì³££¡"+e);
+            System.out.println("å‘é€ POST è¯·æ±‚å‡ºç°å¼‚å¸¸ï¼"+e);
             e.printStackTrace();
         }
-        //Ê¹ÓÃfinally¿éÀ´¹Ø±ÕÊä³öÁ÷¡¢ÊäÈëÁ÷
+        //ä½¿ç”¨finallyå—æ¥å…³é—­è¾“å‡ºæµã€è¾“å…¥æµ
         finally{
             try{
                 if(out!=null){

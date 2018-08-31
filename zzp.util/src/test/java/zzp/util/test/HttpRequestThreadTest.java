@@ -13,7 +13,7 @@ public class HttpRequestThreadTest {
 
 	public static void main(String[] args) {
 		int vehicleNoMax = 50;
-		String vehicleNos = "‘¡BAD548,‘¡BAN575,‘¡BAN596,‘¡BAN803,‘¡BAP099,‘¡BAP161,‘¡BAX162,‘¡BAZ700,‘¡BAZ701,‘¡BB6273,‘¡BB6359,‘¡BBC747,‘¡BBN288,‘¡BBN295,‘¡BBN296,‘¡BBN305,‘¡BBQ421,‘¡BBQ540,‘¡BBQ649,‘¡BBQ689,‘¡BBQ705,‘¡BBT477,‘¡BBY091,‘¡BBY181,‘¡BBY262,‘¡BBY327,‘¡BBY369,‘¡BBY376,‘¡BBY378,‘¡BBY385,‘¡BBY388,‘¡BBY389,‘¡BBY395,‘¡BBY575,‘¡BBY608,‘¡BBY609,‘¡BBY611,‘¡BCG067,‘¡BCG087,‘¡BCG088,‘¡BCG091,‘¡BCG746,‘¡BDX743,‘¡BDZ318,‘¡BDZ802,‘¡BEA360,‘¡BEG142,‘¡BET599,‘¡BFH641–¬,‘¡BFP995,‘¡BFS372,‘¡BFS372±±∂∑,‘¡BFS626,‘¡BFS668,‘¡BFS688,‘¡BFT045,‘¡BFW682,‘¡BFW683,‘¡BFW683±±∂∑,‘¡BGD759–¬,‘¡BGE115–¬,‘¡BGG023,‘¡BGK915–¬,‘¡BGK977–¬,‘¡BGK999,‘¡BGQ083,‘¡BGS126,‘¡BGS195,‘¡BGT602,‘¡BJ5943,‘¡BL0769,‘¡BL4263,‘¡BL4442,‘¡BM1982,‘¡BM2180,‘¡BM4468,‘¡BM7115±±∂∑,‘¡BM7222,‘¡BP5091,‘¡BP6061,‘¡BR0533,‘¡BR2865,‘¡BR7665,‘¡BS0985,‘¡BS6035,‘¡BS8435,‘¡BT2096,‘¡BT2857,‘¡BT2886±±∂∑,‘¡BT2982,‘¡BT8380,‘¡BT8958±±∂∑,‘¡BU2775,‘¡BU4538,‘¡BU9026,‘¡BU9056,‘¡BU9059,‘¡BU9713,‘¡BV0400,‘¡BV0401,‘¡BV0528,‘¡BV8716,‘¡BW1840,‘¡BW1901,‘¡BW7298,‘¡BZ0152,‘¡BZ0153,‘¡BZ0166,‘¡BZ0168,‘¡BZ0169,‘¡BZ0170,‘¡BZ0171,‘¡BZ1278,‘¡BZ1291,‘¡BZ2437,‘¡BZ2683,‘¡BZ2689";
+		String vehicleNos = "Á≤§BAD548,Á≤§BAN575,Á≤§BAN596,Á≤§BAN803,Á≤§BAP099,Á≤§BAP161,Á≤§BAX162,Á≤§BAZ700,Á≤§BAZ701,Á≤§BB6273,Á≤§BB6359,Á≤§BBC747,Á≤§BBN288,Á≤§BBN295,Á≤§BBN296,Á≤§BBN305,Á≤§BBQ421,Á≤§BBQ540,Á≤§BBQ649,Á≤§BBQ689,Á≤§BBQ705,Á≤§BBT477,Á≤§BBY091,Á≤§BBY181,Á≤§BBY262,Á≤§BBY327,Á≤§BBY369,Á≤§BBY376,Á≤§BBY378,Á≤§BBY385,Á≤§BBY388,Á≤§BBY389,Á≤§BBY395,Á≤§BBY575,Á≤§BBY608,Á≤§BBY609,Á≤§BBY611,Á≤§BCG067,Á≤§BCG087,Á≤§BCG088,Á≤§BCG091,Á≤§BCG746,Á≤§BDX743,Á≤§BDZ318,Á≤§BDZ802,Á≤§BEA360,Á≤§BEG142,Á≤§BET599,Á≤§BFH641Êñ∞,Á≤§BFP995,Á≤§BFS372,Á≤§BFS372ÂåóÊñó,Á≤§BFS626,Á≤§BFS668,Á≤§BFS688,Á≤§BFT045,Á≤§BFW682,Á≤§BFW683,Á≤§BFW683ÂåóÊñó,Á≤§BGD759Êñ∞,Á≤§BGE115Êñ∞,Á≤§BGG023,Á≤§BGK915Êñ∞,Á≤§BGK977Êñ∞,Á≤§BGK999,Á≤§BGQ083,Á≤§BGS126,Á≤§BGS195,Á≤§BGT602,Á≤§BJ5943,Á≤§BL0769,Á≤§BL4263,Á≤§BL4442,Á≤§BM1982,Á≤§BM2180,Á≤§BM4468,Á≤§BM7115ÂåóÊñó,Á≤§BM7222,Á≤§BP5091,Á≤§BP6061,Á≤§BR0533,Á≤§BR2865,Á≤§BR7665,Á≤§BS0985,Á≤§BS6035,Á≤§BS8435,Á≤§BT2096,Á≤§BT2857,Á≤§BT2886ÂåóÊñó,Á≤§BT2982,Á≤§BT8380,Á≤§BT8958ÂåóÊñó,Á≤§BU2775,Á≤§BU4538,Á≤§BU9026,Á≤§BU9056,Á≤§BU9059,Á≤§BU9713,Á≤§BV0400,Á≤§BV0401,Á≤§BV0528,Á≤§BV8716,Á≤§BW1840,Á≤§BW1901,Á≤§BW7298,Á≤§BZ0152,Á≤§BZ0153,Á≤§BZ0166,Á≤§BZ0168,Á≤§BZ0169,Á≤§BZ0170,Á≤§BZ0171,Á≤§BZ1278,Á≤§BZ1291,Á≤§BZ2437,Á≤§BZ2683,Á≤§BZ2689";
 		String[] vehicleNoArr = vehicleNos.split(",");
 		List<String> vehicleNoList = new ArrayList<String>();
 		StringBuffer sBuffer = new StringBuffer();
@@ -32,7 +32,7 @@ public class HttpRequestThreadTest {
 		
 		SimpleDateFormat smft = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
 		for (int i = 0; i < vehicleNoList.size(); i++) {
-			//4.2 ªÒ»°≥µ¡æµƒ◊Ó–¬Œª÷√–≈œ¢ 
+			//4.2 Ëé∑ÂèñËΩ¶ËæÜÁöÑÊúÄÊñ∞‰ΩçÁΩÆ‰ø°ÊÅØ 
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("method", "GetVehcileInfo");
 			params.put("appkey", "30914b89-262a-4832-b8b9-fe33770b4b4d");

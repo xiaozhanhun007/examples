@@ -3,7 +3,7 @@ package com.util.http;
 import java.security.MessageDigest;
 
 /**
- * MD5¹¤¾ßÀà
+ * MD5å·¥å…·ç±»
  * @author karyzeng
  * @since 2018.08.29
  *
@@ -11,9 +11,9 @@ import java.security.MessageDigest;
 public class MD5Util {
 
     /** 
-     * MD5¼ÓÂë Éú³É32Î»md5Âë 
+     * MD5åŠ ç  ç”Ÿæˆ32ä½md5ç  
      * 
-     * @param str Òª½øĞĞMD5µÄ×Ö·û´®
+     * @param str è¦è¿›è¡ŒMD5çš„å­—ç¬¦ä¸²
      * 
      * @return String
      */ 
@@ -22,7 +22,7 @@ public class MD5Util {
 		MessageDigest md5 = null;
 		try {
 			md5 = MessageDigest.getInstance("MD5");
-			//½«strµÄ±àÂëÉèÖÃÎªutf-8£¬±ÜÃâÖĞÎÄ³öÏÖMD5²»Ò»ÖÂµÄÇé¿ö
+			//å°†strçš„ç¼–ç è®¾ç½®ä¸ºutf-8ï¼Œé¿å…ä¸­æ–‡å‡ºç°MD5ä¸ä¸€è‡´çš„æƒ…å†µ
 			md5.update(str.getBytes("UTF-8"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -45,9 +45,9 @@ public class MD5Util {
 	}
   
     /** 
-     * ¼ÓÃÜ½âÃÜËã·¨ Ö´ĞĞÒ»´Î¼ÓÃÜ£¬Á½´Î½âÃÜ 
+     * åŠ å¯†è§£å¯†ç®—æ³• æ‰§è¡Œä¸€æ¬¡åŠ å¯†ï¼Œä¸¤æ¬¡è§£å¯† 
      * 
-     * @param str±íÊ¾Òª¼ÓÃÜ»òÕß½âÃÜµÄ×Ö·û´®
+     * @param strè¡¨ç¤ºè¦åŠ å¯†æˆ–è€…è§£å¯†çš„å­—ç¬¦ä¸²
      * 
      * @return String
      */   
@@ -63,11 +63,11 @@ public class MD5Util {
     }  
   
     public static void main(String args[]) {  
-        String s = new String("ÔÁBAD548");  
-        System.out.println("Ô­Ê¼£º" + s);  
-        System.out.println("MD5ºó£º" + string2MD5(s));  
-        System.out.println("¼ÓÃÜµÄ£º" + convertMD5(s));  
-        System.out.println("½âÃÜµÄ£º" + convertMD5(convertMD5(s)));  
+        String s = new String("ç²¤BAD548");  
+        System.out.println("åŸå§‹ï¼š" + s);  
+        System.out.println("MD5åï¼š" + string2MD5(s));  
+        System.out.println("åŠ å¯†çš„ï¼š" + convertMD5(s));  
+        System.out.println("è§£å¯†çš„ï¼š" + convertMD5(convertMD5(s)));  
     }  
 	
 }

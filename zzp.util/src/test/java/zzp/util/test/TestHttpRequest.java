@@ -15,11 +15,11 @@ public class TestHttpRequest {
 
 	public static void main(String[] args) {
 		
-		//°Ù¶ÈµØÍ¼µØÖ·½âÎö½Ó¿Ú
-//		System.out.println(HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=¹ã¶«Ê¡¹ãÖİÊĞÌìºÓÇøÌìºÓ¿ÍÔËÕ¾&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R"));
+		//ç™¾åº¦åœ°å›¾åœ°å€è§£ææ¥å£
+//		System.out.println(HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=å¹¿ä¸œçœå¹¿å·å¸‚å¤©æ²³åŒºå¤©æ²³å®¢è¿ç«™&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R"));
 		
 		SimpleDateFormat smft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		//²âÊÔÒ×Á÷½Ó¿Ú4.15 »ñÈ¡µ±Ç°ÕË»§ÏÂµÄ³µÁ¾ĞÅÏ¢ 
+//		//æµ‹è¯•æ˜“æµæ¥å£4.15 è·å–å½“å‰è´¦æˆ·ä¸‹çš„è½¦è¾†ä¿¡æ¯ 
 //		Map<String, String> params = new HashMap<String, String>();
 //		params.put("method", "GetVehicleNoList");
 //		params.put("appkey", "30914b89-262a-4832-b8b9-fe33770b4b4d");
@@ -43,7 +43,7 @@ public class TestHttpRequest {
 //		}
 		
 		
-		//4.2 »ñÈ¡³µÁ¾µÄ×îĞÂÎ»ÖÃĞÅÏ¢ 
+		//4.2 è·å–è½¦è¾†çš„æœ€æ–°ä½ç½®ä¿¡æ¯ 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("method", "GetVehcileInfo");
 		params.put("appkey", "30914b89-262a-4832-b8b9-fe33770b4b4d");
@@ -51,7 +51,7 @@ public class TestHttpRequest {
 		params.put("format", "json");
 		params.put("isoffsetlonlat", "2");
 		params.put("sessionid", "");
-		params.put("vehicle", "ÔÁBZ1291");
+		params.put("vehicle", "ç²¤BZ1291");
 		String result = HttpRequest.sendGet("http://api.e6gps.com/public/v3/Inface/Call", "69411cff-d7be-4458-952f-2fca0267b408", params);
 		System.out.println(result);
 		
@@ -67,19 +67,19 @@ public class TestHttpRequest {
 				String roadName = data.getString("RoadName");
 				double lon = Double.parseDouble(data.getString("Lon02"));
 				double lat = Double.parseDouble(data.getString("Lat02"));
-				System.out.println("³µÁ¾" + (i + 1) + "£º³µÅÆºÅ£º" + vehicle + "£¬gpsTime£º" + gpsTime + "£¬ÇøÓò£º" + placeName + "£¬µÀÂ·£º" + roadName + "£¬¾­¶È£º" + lat + "£¬Î³¶È£º" + lon);
+				System.out.println("è½¦è¾†" + (i + 1) + "ï¼šè½¦ç‰Œå·ï¼š" + vehicle + "ï¼ŒgpsTimeï¼š" + gpsTime + "ï¼ŒåŒºåŸŸï¼š" + placeName + "ï¼Œé“è·¯ï¼š" + roadName + "ï¼Œç»åº¦ï¼š" + lat + "ï¼Œçº¬åº¦ï¼š" + lon);
 			}
 		}
 
 		
-//		//4.14²éÑ¯Á½¸öµØµã¼äµÄÔ¤¼ÆÊ±¼äºÍÀï³Ì
+//		//4.14æŸ¥è¯¢ä¸¤ä¸ªåœ°ç‚¹é—´çš„é¢„è®¡æ—¶é—´å’Œé‡Œç¨‹
 //		Map<String, String> params = new HashMap<String, String>();
 //		params.put("method", "GetDriveInfoByPlaceName");
 //		params.put("appkey", "30914b89-262a-4832-b8b9-fe33770b4b4d");
 //		params.put("timestamp", smft.format(new Date()));
 //		params.put("format", "json");
-//		params.put("startplacename", "¹ã¶«Ê¡¹ãÖİÊĞÌìºÓÇøÌìºÓ¿ÍÔËÕ¾");
-//		params.put("endplacename", "¹ã¶«Ê¡¹ãÖİÊĞÌìºÓÇø»ª¾°ĞÂ³Ç¶«Çø»ª¾°¶şÆÚÔÁÉú½Ö98ºÅ405");
+//		params.put("startplacename", "å¹¿ä¸œçœå¹¿å·å¸‚å¤©æ²³åŒºå¤©æ²³å®¢è¿ç«™");
+//		params.put("endplacename", "å¹¿ä¸œçœå¹¿å·å¸‚å¤©æ²³åŒºåæ™¯æ–°åŸä¸œåŒºåæ™¯äºŒæœŸç²¤ç”Ÿè¡—98å·405");
 //		String result = HttpRequest.sendGet("http://api.e6gps.com/public/v3/StatisticsReport/Call", "69411cff-d7be-4458-952f-2fca0267b408", params);
 //		System.out.println(result);
 		

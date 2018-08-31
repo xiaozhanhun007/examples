@@ -18,7 +18,7 @@ public class TestHttpRequest {
 		//百度地图地址解析接口
 //		System.out.println(HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=广东省广州市天河区天河客运站&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R"));
 		
-		SimpleDateFormat smft = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+		SimpleDateFormat smft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //		//测试易流接口4.15 获取当前账户下的车辆信息 
 //		Map<String, String> params = new HashMap<String, String>();
 //		params.put("method", "GetVehicleNoList");
@@ -82,7 +82,7 @@ public class TestHttpRequest {
 //		params.put("endplacename", "广东省广州市天河区华景新城东区华景二期粤生街98号405");
 //		String result = HttpRequest.sendGet("http://api.e6gps.com/public/v3/StatisticsReport/Call", "69411cff-d7be-4458-952f-2fca0267b408", params);
 //		System.out.println(result);
-	
+		
 	}
 
 }

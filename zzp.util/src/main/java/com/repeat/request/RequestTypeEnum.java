@@ -28,5 +28,21 @@ public enum RequestTypeEnum {
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * 根据type来获取name
+	 * 
+	 * @param type
+	 * 
+	 * @return String
+	 */
+	public static String getNameByType(int type) {
+		for (RequestTypeEnum typeEnum : RequestTypeEnum.values()) {
+			if (typeEnum.getType() == type) {
+				return typeEnum.getName();
+			}
+		}
+		return null;
+	}
 
 }

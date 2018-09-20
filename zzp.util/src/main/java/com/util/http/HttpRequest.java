@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.util.convert.ConvertUtil;
 import com.util.mapsort.MapSort;
 
 /**
@@ -24,14 +25,14 @@ import com.util.mapsort.MapSort;
 public class HttpRequest {
 
 	public static void main(String[] args) {
-//		System.out.println(HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=广东省广州市天河区华景新城东区华景二期粤生街98号405&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R"));
+		System.out.println(HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=  广东省  广州市天河区华景  	新城东区华景二期粤生街98号405 &output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R"));
 		
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("method", "GetVehicleNoList");
-		params.put("appkey", "30914b89-262a-4832-b8b9-fe33770b4b4d");
-		params.put("timestamp", "2018-08-29 16:35:36");
-		params.put("format", "json");
-		System.out.println(HttpRequest.sendGet("http://api.e6gps.com/public/v3/StatisticsReport/Call", "69411cff-d7be-4458-952f-2fca0267b408", params));
+//		Map<String, String> params = new HashMap<String, String>();
+//		params.put("method", "GetVehicleNoList");
+//		params.put("appkey", "30914b89-262a-4832-b8b9-fe33770b4b4d");
+//		params.put("timestamp", "2018-08-29 16:35:36");
+//		params.put("format", "json");
+//		System.out.println(HttpRequest.sendGet("http://api.e6gps.com/public/v3/StatisticsReport/Call", "69411cff-d7be-4458-952f-2fca0267b408", params));
 	}
 	
 	/**
@@ -43,6 +44,8 @@ public class HttpRequest {
      * @return String 响应结果
      */
     public static String sendGet(String url, String param) {
+    	//去除参数中可能含有的空格
+    	param = ConvertUtil.trimSpace(param);
         String result = "";
         BufferedReader in = null;
         try {
@@ -143,6 +146,8 @@ public class HttpRequest {
      * @return String 响应结果
      */
     public static String sendPost(String url, String param) {
+    	//去除参数中可能含有的空格
+    	param = ConvertUtil.trimSpace(param);
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";

@@ -35,7 +35,7 @@ public class ImportHttpRequestThread implements Runnable{
 	@Override
 	public void run() {
 		System.out.println(Thread.currentThread().getName() + "开始...");
-		String result = HttpRequest.sendGet(url, appsecret, params);
+		String result = HttpRequest.sendGetByMD5(url, appsecret, params);
 		System.out.println(Thread.currentThread() + "：" + result);
 		JSONObject jsonObject = JSONObject.parseObject(result);
 		JSONObject resultJson = jsonObject.getJSONObject("result");

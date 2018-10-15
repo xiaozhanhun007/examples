@@ -102,8 +102,8 @@ public class HttpRequest {
      * 
      * @return String 响应结果
      */
-    public static String sendGet(String url, String appsecret, Map<String, String> params){
-    	String sign = getSign(appsecret, params);
+    public static String sendGetByMD5(String url, String appsecret, Map<String, String> params){
+    	String sign = getSignByMD5(appsecret, params);
     	StringBuffer sBuffer = new StringBuffer();
     	for (Map.Entry<String, String> entry : params.entrySet()) {
     		String value = "";
@@ -119,14 +119,14 @@ public class HttpRequest {
     }
     
     /**
-     * 获得签名sign
+     * 获得MD5加密签名sign
      * 
      * @param appsecret 私钥
      * @param params 签名参数sign自动生成，不需要传入
      * 
      * @return String 签名sign
      */
-    public static String getSign(String appsecret, Map<String, String> params) {
+    public static String getSignByMD5(String appsecret, Map<String, String> params) {
     	Map<String, String> sortMap = MapSort.sortMapByKey(params);
     	StringBuffer sBuffer = new StringBuffer();
     	sBuffer.append(appsecret);
@@ -135,6 +135,46 @@ public class HttpRequest {
     	}
     	sBuffer.append(appsecret);
     	return MD5Util.string2MD5(sBuffer.toString()).toUpperCase();
+    }
+    
+    /**
+     * 向指定URL发送GET方法的请求
+     * 
+     * @param url 发送请求的URL
+     * @param appsecret 私钥
+     * @param params 签名参数自动生成，不需要传入
+     * 
+     * @return String 响应结果
+     */
+    public static String sendGetBySHA1(String url, String appsecret, Map<String, String> params){
+    	String appId = params.get("appId");
+    	String time = params.get("time");
+    	String signature = getSignBySHA1(appId, appsecret, time);
+    	StringBuffer sBuffer = new StringBuffer();
+    	for (Map.Entry<String, String> entry : params.entrySet()) {
+    		String value = "";
+			try {
+				value = URLEncoder.encode(entry.getValue(),"utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			sBuffer.append(entry.getKey() + "=" + value + "&");
+    	}
+    	sBuffer.append("signature=" + signature);
+    	return sendGet(url, sBuffer.toString());
+    }
+    
+    /**
+     * 获得SHA1加密签名sign
+     * 
+     * @param appId 
+     * @param appSecret 私钥
+     * @param time 当前时间字符串，格式“2018-10-13 11:02:10”
+     * @return
+     */
+    public static String getSignBySHA1(String appId, String appSecret, String time) {
+    	String sign = SHA1SignUtil.createSignature(appId, appSecret, time);
+    	return sign;
     }
     
     /**

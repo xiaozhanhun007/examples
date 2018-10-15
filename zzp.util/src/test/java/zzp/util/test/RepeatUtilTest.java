@@ -42,7 +42,7 @@ public class RepeatUtilTest {
 				params.put("isoffsetlonlat", "2");
 				params.put("sessionid", "");
 				params.put("vehicle", "粤BZ1291");
-				return HttpRequest.sendGet("http://api.e6gps.com/public/v3/Inface/Call", "69411cff-d7be-4458-952f-2fca0267b408", params);
+				return HttpRequest.sendGetByMD5("http://api.e6gps.com/public/v3/Inface/Call", "69411cff-d7be-4458-952f-2fca0267b408", params);
 			}
 			
 		}, 3, RequestTypeEnum.YL.getType());

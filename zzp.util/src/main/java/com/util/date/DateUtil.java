@@ -16,9 +16,10 @@ public class DateUtil {
 	private static SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public static void main(String[] args) {
-		System.out.println(getLastMonthFirstDay());
-		System.out.println(getLastMonthLastDay());
-		System.out.println(getDayByNum("2018-09-30", -7));
+//		System.out.println(getLastMonthFirstDay());
+//		System.out.println(getLastMonthLastDay());
+//		System.out.println(getDayByNum("2018-09-30", -7));
+		System.out.println(getMonthLastDay("2018-08-1-01"));
 	}
 	
 	/**
@@ -50,6 +51,25 @@ public class DateUtil {
 			calendar.setTime(dateFormat.parse("2018-05-15"));
 			calendar.set(Calendar.DAY_OF_MONTH, 1); 
 			calendar.add(Calendar.DATE, -1);
+			return dateFormat.format(calendar.getTime());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * 根据date来获取当前月的最后一天
+	 * 
+	 * @param date 日期字符串
+	 * 
+	 * @return String
+	 */
+	public static String getMonthLastDay(String date) {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(dateFormat.parse(date));
+			calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
 			return dateFormat.format(calendar.getTime());
 		} catch (Exception e) {
 			e.printStackTrace();

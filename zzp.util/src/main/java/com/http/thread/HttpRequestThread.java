@@ -30,7 +30,7 @@ public class HttpRequestThread implements Runnable{
 	
 	@Override
 	public void run() {
-		String result = HttpRequest.sendGet(url, appsecret, params);
+		String result = HttpRequest.sendGetByMD5(url, appsecret, params);
 		System.out.println(Thread.currentThread() + "：" + result);
 		JSONObject jsonObject = JSONObject.parseObject(result);
 		JSONObject resultJson = jsonObject.getJSONObject("result");

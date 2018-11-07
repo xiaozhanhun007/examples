@@ -90,6 +90,12 @@ public class RBTestHttpRequest {
 		calendar.add(Calendar.HOUR_OF_DAY, 2);
 		Date tempDate = calendar.getTime();
 		System.out.println(smft.format(tempDate));
+		
+		Calendar calendar2 = Calendar.getInstance();
+		calendar2.add(Calendar.DAY_OF_MONTH, -29);
+		Date tempDate2 = calendar2.getTime();
+		System.out.println(smft.format(tempDate2));
+		
 	}
 
 }

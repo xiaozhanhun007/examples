@@ -16,12 +16,14 @@ public class RepeatUtilTest {
 		SimpleDateFormat smft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		RepeatUtil repeatUtil = new RepeatUtil();
 		
+		String address = "广东省广州市天河区天河客运站";
+		
 		//请求百度API
 		String baiduResult = repeatUtil.repeatRequest(new Request() {
 			
 			@Override
 			public String requestMethod() {
-				return HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=广东省广州市天河区天河客运站&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R");
+				return HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=" + address + "&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R");
 			}
 			
 		}, 3, RequestTypeEnum.BD.getType());

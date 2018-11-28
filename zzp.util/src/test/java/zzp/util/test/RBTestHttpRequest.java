@@ -55,7 +55,7 @@ public class RBTestHttpRequest {
 			e.printStackTrace();
 		}
 		
-		String resultInfo = HttpRequest.sendGet("http://gps4.56pip.com/gpsservice/gpsservices.asmx/getCurrentVehicleInfo", "loginKey=aHl0cHdlYl8zNjExNTc3OV8xMC4yNTQuMC45M18zODM=&numberPlateList=粤AH8A85");
+		String resultInfo = HttpRequest.sendGet("http://gps4.56pip.com/gpsservice/gpsservices.asmx/getCurrentVehicleInfo", "loginKey=aHl0cHdlYl8zNjExNTc3OV8xMC4yNTQuMC45MF8zODM=&numberPlateList=粤AH8A85");
 		resultInfo = StringEscapeUtils.unescapeXml(resultInfo);
 //		String resultInfo = "<string xmlns=\"http://soap.56pip.com/\"><NewDataSet><Table><ObjectCode>654055</ObjectCode><VehicleNum>测试123123</VehicleNum><SerialNo>13609020330</SerialNo><SIM>13609020330</SIM><GPSTime>2018-09-21 12:13:36</GPSTime><RcvTime>2018-09-21 12:28:00</RcvTime><Lon>113.435643</Lon><Lat>23.150973</Lat><Speed>0</Speed><Direct>0</Direct><Mileage>0</Mileage><StatusDes>ACC开,定位,信号强度:18,</StatusDes><OilNum>-1</OilNum><IsOnline>0</IsOnline><IsAlarm>0</IsAlarm><Status>0</Status><ICCID /><StopTime>2018-09-20T08:47:24.943+08:00</StopTime><Address>广东省广州市天河区东圃镇,南云一路玉树新村以东南818米</Address></Table><Table><ObjectCode>654055</ObjectCode><VehicleNum>测试123123</VehicleNum><SerialNo>13609020330</SerialNo><SIM>13609020330</SIM><GPSTime>2018-09-21 12:13:36</GPSTime><RcvTime>2018-09-21 12:28:00</RcvTime><Lon>113.435643</Lon><Lat>23.150973</Lat><Speed>0</Speed><Direct>0</Direct><Mileage>0</Mileage><StatusDes>ACC开,定位,信号强度:18,</StatusDes><OilNum>-1</OilNum><IsOnline>0</IsOnline><IsAlarm>0</IsAlarm><Status>0</Status><ICCID /><StopTime>2018-09-20T08:47:24.943+08:00</StopTime><Address>广东省广州市天河区东圃镇,南云一路玉树新村以东南818米</Address></Table></NewDataSet></string>";
 		System.out.println("获取车辆信息返回结果：" + resultInfo);
@@ -63,16 +63,23 @@ public class RBTestHttpRequest {
 			Document documentInfo = DocumentHelper.parseText(resultInfo);
 			Element rootElementInfo = documentInfo.getRootElement();
 			Element newDataSet = rootElementInfo.element("NewDataSet");
-			List<Element> tables = newDataSet.elements("Table");
-			if (tables != null && tables.size() > 0) {
-				System.out.println("存在数据");
-				for (int i = 0; i < tables.size(); i++) {
-					Element table = tables.get(i);
-					Element vehicle = table.element("VehicleNum");
-					System.out.println(vehicle.getText());
-				}
+			String newDataSetText = newDataSet.getText();
+			System.out.println(newDataSetText);
+			if (newDataSetText.equals("Error:Access denied")) {
+				System.out.println("登录凭证无效");
 			} else {
-				System.out.println("不存在数据");
+				System.out.println("登录凭证有效");
+				List<Element> tables = newDataSet.elements("Table");
+				if (tables != null && tables.size() > 0) {
+					System.out.println("存在数据");
+					for (int i = 0; i < tables.size(); i++) {
+						Element table = tables.get(i);
+						Element vehicle = table.element("VehicleNum");
+						System.out.println(vehicle.getText());
+					}
+				} else {
+					System.out.println("不存在数据");
+				}
 			}
 //			Element table = newDataSet.element("Table");
 //			Element vehicle = table.element("VehicleNum");
@@ -80,6 +87,8 @@ public class RBTestHttpRequest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println(checkRBLoginKey("aHl0cHdlYl8zNjExNTc3OV8xMC4yNTQuMC45MF8zODM"));
 		
 		
 		SimpleDateFormat smft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -96,6 +105,20 @@ public class RBTestHttpRequest {
 		Date tempDate2 = calendar2.getTime();
 		System.out.println(smft.format(tempDate2));
 		
+	}
+	
+	private static boolean checkRBLoginKey(String loginKey) {
+		String result = HttpRequest.sendGet("http://gps4.56pip.com/gpsservice/gpsservices.asmx/checkLoginKey", "sessionKey=" + loginKey);
+		System.out.println("判断日滨登录凭证的有效性，返回数据为：" + result);
+		try {
+			Document document = DocumentHelper.parseText(result);
+			Element rootElement = document.getRootElement();
+			String sign = rootElement.getText();
+			return sign.equals("true") ? true : false;
+		} catch (DocumentException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

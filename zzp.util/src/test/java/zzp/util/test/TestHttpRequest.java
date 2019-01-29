@@ -27,7 +27,7 @@ public class TestHttpRequest {
 		}
 		long endTime = System.currentTimeMillis();
 		System.out.println("繁体转换简体的时间：" + (endTime - startTime) + "毫秒");
-		System.out.println(HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=" + address + "&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R"));
+		System.out.println(HttpRequest.sendGet("http://api.map.baidu.com/geocoder/v2/", "address=广州&output=json&ak=KaqwkA7ozlPx4KgYVXbTfbGOGUXiIp3R"));
 		
 		SimpleDateFormat smft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //		//测试易流接口4.15 获取当前账户下的车辆信息 

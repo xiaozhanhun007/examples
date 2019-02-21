@@ -71,14 +71,12 @@ public class MailSenderInfo {
      */
     public Properties getProperties(){   
       Properties p = new Properties();   
-      p.put("mail.smtp.host", this.mailServerHost);   
-      p.put("mail.smtp.port", this.mailServerPort);   
-      p.put("mail.smtp.auth", validate ? "true" : "false");
+      p.put("mail.smtp.host", this.mailServerHost);//smtp服务器   
+      p.put("mail.smtp.port", this.mailServerPort);//smtp服务器端口
+      p.put("mail.smtp.auth", validate ? "true" : "false");//是否验证用户名和密码
       if (trust) {
     	//添加信任的服务器地址，多个地址之间用空格分开
     	  p.put("mail.smtp.ssl.trust", "smtp.toyotsu-ea.com");
-    	  p.put("mail.smtp.host", "smtp.toyotsu-ea.com");
-    	  p.put("mail.smtp.port", "25");
       }
       return p;   
     }   

@@ -15,6 +15,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * 邮件发送器
  * 
@@ -33,6 +35,7 @@ public class SimpleMailSender {
 	      // 判断是否需要身份认证   
 	      MyAuthenticator authenticator = null;   
 	      Properties pro = mailInfo.getProperties();  
+	      System.out.println("发送邮件配置：" + JSON.toJSONString(pro));
 	      if (mailInfo.isValidate()) {   
 	    	//如果需要身份认证，则创建一个密码验证器   
 	        authenticator = new MyAuthenticator(mailInfo.getUserName(), mailInfo.getPassword());   
@@ -72,7 +75,8 @@ public class SimpleMailSender {
 	    public static boolean sendHtmlMail(MailSenderInfo mailInfo){   
 	      // 判断是否需要身份认证   
 	      MyAuthenticator authenticator = null;  
-	      Properties pro = mailInfo.getProperties();  
+	      Properties pro = mailInfo.getProperties();
+	      System.out.println("发送邮件配置：" + JSON.toJSONString(pro));
 	      //如果需要身份认证，则创建一个密码验证器    
 	      if (mailInfo.isValidate()) {   
 	        authenticator = new MyAuthenticator(mailInfo.getUserName(), mailInfo.getPassword());  

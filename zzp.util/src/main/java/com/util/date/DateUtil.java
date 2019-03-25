@@ -94,5 +94,38 @@ public class DateUtil {
 			return null;
 		}
 	}
+
+	/**
+	 * 将分钟数转换成X天 Xh Xmin的格式
+	 *
+	 * @param num 分钟数
+	 * @return String
+	 */
+	public static String convertMinToStr(long num) {
+		long minute = 0;
+		long hour = 0;
+		long day = 0;
+
+		if (num > 0) {
+			minute = num % 60;
+			num -= minute;
+			if (num > 0) {
+				num /= 60;
+				hour = num % 24;
+				num -= hour;
+				if (num > 0) {
+					day = num / 24;
+				}
+			}
+		}
+
+		if (day > 0) {
+			return day + "天" + hour + "h" + minute + "min";
+		} else if (hour > 0) {
+			return hour + "h" + minute + "min";
+		} else {
+			return minute + "min";
+		}
+	}
 	
 }

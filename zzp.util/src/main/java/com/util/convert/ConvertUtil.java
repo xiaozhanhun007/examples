@@ -49,7 +49,7 @@ public class ConvertUtil {
 		tempVal = tempVal.replaceAll("\\r|\\n|\\s|\\t", "");//去掉换行和字符串中间空格
 		return tempVal;
 	}
-	
+
 	public static void main(String[] args) {
 		int a = 12;
 		String b = "zzz";
@@ -60,7 +60,7 @@ public class ConvertUtil {
 		System.out.println(convertInsertParam(date));
 		System.out.println(convertInsertParam(d));
 		System.out.println(convertInsertParam(null));
-		
+
 		//=========================
 		System.out.println(trimSpace("  dd  zzz  dddgg   				"));
 	}

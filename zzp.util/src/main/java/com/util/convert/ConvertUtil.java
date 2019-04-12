@@ -76,7 +76,7 @@ public class ConvertUtil {
 						StringBuffer value = new StringBuffer();
 						for (int j = 0;j < cols.length;j++) {
 							if (StringUtils.isNotBlank(cols[j])) {
-								value.append(cols[j].substring(cols[j].indexOf(",") + 1, cols[j].length()) + ";");
+								value.append(cols[j].substring(cols[j].indexOf(":") + 1, cols[j].length()) + ";");
 							}
 						}
 						Map<String, Object> map = new HashMap<String, Object>();
@@ -87,6 +87,20 @@ public class ConvertUtil {
 			}
 		}
 		return list;
+	}
+
+	/**
+	 * 将字符串中的html标签替换成空字符串
+	 *
+	 * @param result
+	 *
+	 * @return String
+	 */
+	public static String replaceHtmlLabel(String result) {
+		if (result.contains("<br>")) {
+			return result.replaceAll("<br>", "");
+		}
+		return result;
 	}
 
 	public static void main(String[] args) {
@@ -105,9 +119,15 @@ public class ConvertUtil {
 //		String name = null;
 ////		System.out.println(name.hashCode());
 //		System.out.println(Objects.hashCode(name));
+//        int[] array = new int[10];
+//        System.out.println(array.length);
 
 //		String result = "第2行,第2列:内地车牌不允许为空<br>第2行,第3列:是否中港车不允许为空<br>第2行,第5列:车型不允许为空<br>第2行,第6列:载量不允许为空<br>第2行,第7列:是否海关备案车辆不允许为空<br>第2行,第8列:是否危险品运输备案车辆不允许为空<br>第2行,第9列:是否装GPS不允许为空<br><br>第3行,第2列:内地车牌不允许为空<br>第3行,第3列:是否中港车不允许为空<br>第3行,第5列:车型不允许为空<br>第3行,第6列:载量不允许为空<br>第3行,第7列:是否海关备案车辆不允许为空<br>第3行,第8列:是否危险品运输备案车辆不允许为空<br>第3行,第9列:是否装GPS不允许为空<br><br>";
 //		System.out.println(convertResult(result));
+
+		String result = "请选择正确的模板导入!";
+		System.out.println(replaceHtmlLabel(result));
+
 	}
 	
 }

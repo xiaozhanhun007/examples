@@ -152,6 +152,7 @@ public class DateUtil {
 	 * @return Date
 	 */
 	public static Date convertStringToDate(String dateString, String format) {
+
 		Date date = null;
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat(format);

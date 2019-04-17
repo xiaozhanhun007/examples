@@ -1195,7 +1195,7 @@
         </column>
    </entity>
    
-    <!-- 供应商绑定 -->
+    <!-- 供应商绑定  -->
    <entity name="供应商绑定" code="providerImport" >
    		<column name="*公司全称" code="name" type="String">
    			<rules>   

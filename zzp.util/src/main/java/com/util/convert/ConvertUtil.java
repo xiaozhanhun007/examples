@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * 转换工具类
@@ -125,8 +127,16 @@ public class ConvertUtil {
 //		String result = "第2行,第2列:内地车牌不允许为空<br>第2行,第3列:是否中港车不允许为空<br>第2行,第5列:车型不允许为空<br>第2行,第6列:载量不允许为空<br>第2行,第7列:是否海关备案车辆不允许为空<br>第2行,第8列:是否危险品运输备案车辆不允许为空<br>第2行,第9列:是否装GPS不允许为空<br><br>第3行,第2列:内地车牌不允许为空<br>第3行,第3列:是否中港车不允许为空<br>第3行,第5列:车型不允许为空<br>第3行,第6列:载量不允许为空<br>第3行,第7列:是否海关备案车辆不允许为空<br>第3行,第8列:是否危险品运输备案车辆不允许为空<br>第3行,第9列:是否装GPS不允许为空<br><br>";
 //		System.out.println(convertResult(result));
 
-		String result = "请选择正确的模板导入!";
-		System.out.println(replaceHtmlLabel(result));
+//		String result = "请选择正确的模板导入!";
+//		System.out.println(replaceHtmlLabel(result));
+		Queue<Integer> queue = new PriorityQueue<Integer>();
+		queue.add(1);
+		queue.add(6);
+		queue.add(3);
+		queue.add(9);
+		queue.add(11);
+		System.out.println("添加完毕");
+		queue.remove(9);
 
 	}
 	

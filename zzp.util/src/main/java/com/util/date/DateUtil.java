@@ -1,7 +1,11 @@
 package com.util.date;
 
+import com.github.houbb.paradise.common.util.StringUtil;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 时间工具类
@@ -14,6 +18,19 @@ public class DateUtil {
 	
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	private static SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+	public static String FORMAT_yyyy_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
+	public static String FORMAT_yyyy_MM_dd_HH_mm = "yyyy-MM-dd HH:mm";
+	public static String FORMAT_yyyy_MM_dd = "yyyy-MM-dd";
+	public static String FORMAT_yyyy_MM = "yyyy-MM";
+	public static String FORMAT_MM = "MM";
+	public static String FORMAT_dd = "dd";
+	public static String FORMAT_yyyy = "yyyy";
+	public static String FORMAT_yyyyMMddHHmmss = "yyyyMMddHHmmss";
+	public static String FORMAT_yyyyMMdd = "yyyyMMdd";
+	public static String FORMAT_yyyy_MM_dd_HH = "yyyy-MM-dd HH";
+	public static String FORMAT_yyMMdd = "yyMMdd";
+	public static String FORMAT_HH_mm_ss = "HH:mm:ss";
 
 	public static void main(String[] args) {
 //		System.out.println(getLastMonthFirstDay());
@@ -126,6 +143,25 @@ public class DateUtil {
 		} else {
 			return minute + "min";
 		}
+	}
+
+	/**
+	 * 将字符串转换为Date
+	 * @param dateString
+	 * @param format
+	 * @return Date
+	 */
+	public static Date convertStringToDate(String dateString, String format) {
+		Date date = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat(format);
+			if (!StringUtil.isBlank(dateString)) {
+				date = sdf.parse(dateString);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.zzp.app.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.excel.util.ParseExcelUtil;
+import com.util.convert.ConvertUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,13 +19,14 @@ import java.util.Map;
  * @Author karyzeng
  * @since 2019.04.17
  **/
-@Controller(value = "/upload")
+@Controller
+@RequestMapping(value = "/upload")
 public class UploadController {
 
     @RequestMapping(value = "/importTest",method = RequestMethod.POST)
     @ResponseBody
     public String importTest(HttpServletRequest request, HttpServletResponse response, MultipartFile[] uploadFile){
-        String entityName = "车牌导入";
+        String entityName = "服务商导入";
         if (null != uploadFile && uploadFile.length > 0) {
             try {
                 for (MultipartFile uploadFile_temp : uploadFile) {
@@ -32,8 +34,13 @@ public class UploadController {
                     if (excel.getErrorString().length() == 0) {
                         List<Map<String, Object>> listDatas = excel.getListDatas();
                         String json = JSON.toJSONString(listDatas);
+                        return json;
                     } else {
-                        return excel.getErrorString().toString();
+                        if (excel.getErrorString().toString().contains("<br><br>")) {
+                            return  JSON.toJSONString(ConvertUtil.convertImportResult(excel.getErrorString().toString()));
+                        } else {
+                            return  ConvertUtil.replaceHtmlLabel(excel.getErrorString().toString());
+                        }
                     }
                 }
             } catch (Exception e) {

@@ -421,6 +421,24 @@ public class ParseExcelUtil {
             		   errorString.append(msg); 
             		   result = false;
             	   }
+               } else if (rulName.equals("loginName")) {//登录名，只允许字母、数字、下划线
+                   String regex = "^[_a-zA-Z0-9]+$";
+                   if(StringUtil.isNotBlank(cellValue) && !cellValue.matches(regex)){
+                       errorString.append(msg);
+                       result = false;
+                   }
+               } else if (rulName.equals("email")) {//匹配email
+                   String regex = "^[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?$";
+                   if(StringUtil.isNotBlank(cellValue) && !cellValue.matches(regex)){
+                       errorString.append(msg);
+                       result = false;
+                   }
+               } else if (rulName.equals("phone")) {//匹配手机号码
+                   String regex = "^0?(13|14|15|17|18|19)[0-9]{9}$";
+                   if(StringUtil.isNotBlank(cellValue) && !cellValue.matches(regex)){
+                       errorString.append(msg);
+                       result = false;
+                   }
                }
            }  
        }

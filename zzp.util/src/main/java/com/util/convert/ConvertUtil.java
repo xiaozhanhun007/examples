@@ -66,7 +66,7 @@ public class ConvertUtil {
 	 *
 	 * @return List<Map<String, Object>>
 	 */
-	public static List<Map<String, Object>> convertResult(String result) {
+	public static List<Map<String, Object>> convertImportResult(String result) {
 		String[] rows = result.split("<br><br>");
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		if (rows != null && rows.length > 0) {

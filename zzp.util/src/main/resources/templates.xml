@@ -1168,6 +1168,7 @@
             <rules>
             	<rule name="nullable" message="企业简称不允许为空"></rule>
             	<rule name="lengthable" max = "10" message="企业简称不能超过10字符"></rule>
+                <rule name="loginName" message="企业简称只能使用字母数字下划线组合"></rule>
             </rules>
         </column>
         <column name="*企业联系人" code="businessName" type="String">  
@@ -1179,13 +1180,14 @@
    		<column name="*企业联系人手机号" code="mobile" type="String">
    			<rules>   
                 <rule name="nullable" message="企业联系人手机号不允许为空"></rule>
-                <rule name="lengthable" max = "20" message="企业联系人手机不能超过20字符"></rule> 
+                <rule name="phone" message="企业联系人手机号不合法"></rule>
             </rules>
    		</column>
    		<column name="*企业邮箱" code="email" type="String">  
             <rules>   
                 <rule name="nullable" message="邮箱不允许为空"></rule>
                 <rule name="lengthable" max = "20" message="邮箱不能超过20字符"></rule>
+                <rule name="email" message="企业邮箱不合法"></rule>
             </rules>                
         </column>
    		<column name="海关编码" code="companyCode" type="String">  

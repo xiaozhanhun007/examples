@@ -55,7 +55,7 @@ public class RBTestHttpRequest {
 			e.printStackTrace();
 		}
 		
-		String resultInfo = HttpRequest.sendGet("http://gps4.56pip.com/gpsservice/gpsservices.asmx/getCurrentVehicleInfo", "loginKey=aHl0cHdlYl8zNjExNTc3OV8xMC4yNTQuMC45MF8zODM=&numberPlateList=粤AH8A85");
+		String resultInfo = HttpRequest.sendGet("http://gps4.56pip.com/gpsservice/gpsservices.asmx/getCurrentVehicleInfo", "loginKey=aHl0cHdlYl8zNjExNTc3OV8xMC4yNTQuMC45MF8zODM=&numberPlateList=粤BFU259,粤A7Q5Q5");
 		resultInfo = StringEscapeUtils.unescapeXml(resultInfo);
 //		String resultInfo = "<string xmlns=\"http://soap.56pip.com/\"><NewDataSet><Table><ObjectCode>654055</ObjectCode><VehicleNum>测试123123</VehicleNum><SerialNo>13609020330</SerialNo><SIM>13609020330</SIM><GPSTime>2018-09-21 12:13:36</GPSTime><RcvTime>2018-09-21 12:28:00</RcvTime><Lon>113.435643</Lon><Lat>23.150973</Lat><Speed>0</Speed><Direct>0</Direct><Mileage>0</Mileage><StatusDes>ACC开,定位,信号强度:18,</StatusDes><OilNum>-1</OilNum><IsOnline>0</IsOnline><IsAlarm>0</IsAlarm><Status>0</Status><ICCID /><StopTime>2018-09-20T08:47:24.943+08:00</StopTime><Address>广东省广州市天河区东圃镇,南云一路玉树新村以东南818米</Address></Table><Table><ObjectCode>654055</ObjectCode><VehicleNum>测试123123</VehicleNum><SerialNo>13609020330</SerialNo><SIM>13609020330</SIM><GPSTime>2018-09-21 12:13:36</GPSTime><RcvTime>2018-09-21 12:28:00</RcvTime><Lon>113.435643</Lon><Lat>23.150973</Lat><Speed>0</Speed><Direct>0</Direct><Mileage>0</Mileage><StatusDes>ACC开,定位,信号强度:18,</StatusDes><OilNum>-1</OilNum><IsOnline>0</IsOnline><IsAlarm>0</IsAlarm><Status>0</Status><ICCID /><StopTime>2018-09-20T08:47:24.943+08:00</StopTime><Address>广东省广州市天河区东圃镇,南云一路玉树新村以东南818米</Address></Table></NewDataSet></string>";
 		System.out.println("获取车辆信息返回结果：" + resultInfo);

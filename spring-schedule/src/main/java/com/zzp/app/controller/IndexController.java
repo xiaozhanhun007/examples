@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.zzp.app.vo.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,12 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version 1.0
  */
 @Controller
+@RequestMapping(value = "/index")
 public class IndexController {
 
-	@RequestMapping(value = "/index",method = RequestMethod.GET)
+	@RequestMapping(value = "/test",method = RequestMethod.GET)
 	@ResponseBody
-	public String toIndex(HttpServletRequest request,Map<String, Object> map){
-		return "form";
+	public Object test(HttpServletRequest request,Map<String, Object> map){
+		User user = new User();
+		user.setId(1);
+		user.setLoginId("zzp");
+		user.setUserName("小朋司机");
+		return user;
 	}
 	
 }

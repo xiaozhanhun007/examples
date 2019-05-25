@@ -1198,24 +1198,24 @@
    </entity>
    
     <!-- 供应商绑定  -->
-   <entity name="供应商绑定" code="providerImport" >
-   		<column name="*公司全称" code="name" type="String">
-   			<rules>   
+    <entity name="供应商绑定" code="providerImport" >
+        <column name="*公司全称" code="name" type="String">
+            <rules>
                 <rule name="nullable" message="公司全称不允许为空"></rule>
                 <rule name="lengthable" max = "50" message="公司全称不能超过50字符"></rule>
             </rules>
-   		</column>
-   		<column name="*所属货代（简称）" code="spShortName" type="String">  
-            <rules>   
-                <rule name="nullable" message="所属货代（简称）不允许为空"></rule> 
-                <rule name="lengthable" max = "10" message="所属货代（简称）不能超过10字符"></rule> 
-            </rules>                
         </column>
-        <column name="*是否生成费用" code="needExpenses" type="String">  
-            <rules>   
-                <rule name="nullable" message="是否生成费用不允许为空"></rule>  
-            </rules>                
+        <column name="*所属货代（简称）" code="spShortName" type="String">
+            <rules>
+                <rule name="nullable" message="所属货代（简称）不允许为空"></rule>
+                <rule name="lengthable" max = "10" message="所属货代（简称）不能超过10字符"></rule>
+            </rules>
         </column>
-   </entity>
+        <column name="*是否生成费用" code="needExpenses" type="String">
+            <rules>
+                <rule name="nullable" message="是否生成费用不允许为空"></rule>
+            </rules>
+        </column>
+    </entity>
    
 </excel>

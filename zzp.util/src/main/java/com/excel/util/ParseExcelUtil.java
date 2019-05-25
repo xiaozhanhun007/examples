@@ -49,47 +49,57 @@ public class ParseExcelUtil {
     private int dataRowNum;
     
     private String entityName;
-      
-      
+
+    /**
+     *
+     * @param fis 导入文件输入流
+     * @param titleRowNum 导入模板标题行号
+     * @param dataRowNum 导入模板数据行号
+     */
     public ParseExcelUtil(InputStream fis,int titleRowNum,int dataRowNum){  
         try {  
-            /*if(excelFile == null){  
-                throw new FileNotFoundException();  
-            }  
-           fis = new FileInputStream(excelFile);*/             
-        	this.workBook = new XSSFWorkbook(fis);  
+            this.workBook = new XSSFWorkbook(fis);
         	this.errorString = new StringBuffer();
-           this.titleRowNum=titleRowNum;
-           this.dataRowNum = dataRowNum;
-           readExcelData();  
-                              
-        } catch (FileNotFoundException e) {  
+            this.titleRowNum = titleRowNum;
+            this.dataRowNum = dataRowNum;
+            readExcelData();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();  
         }catch (IOException e) {  
             e.printStackTrace();  
         }     
     }
-    
+
+    /**
+     *
+     * @param fis 导入文件输入流
+     * @param titleRowNum 导入模板标题行号
+     * @param dataRowNum 导入模板数据行号
+     * @param entityName 导入模板的模板配置名称
+     */
     public ParseExcelUtil(InputStream fis,int titleRowNum,int dataRowNum,String entityName){  
         try {  
-            /*if(excelFile == null){  
-                throw new FileNotFoundException();  
-            }  
-           fis = new FileInputStream(excelFile);*/             
-        	this.workBook = new XSSFWorkbook(fis);  
+        	this.workBook = new XSSFWorkbook(fis);
         	this.errorString = new StringBuffer();
-           this.titleRowNum=titleRowNum;
-           this.dataRowNum = dataRowNum;
-           this.entityName = entityName;
-           readExcelData();  
-                              
-        } catch (FileNotFoundException e) {  
+            this.titleRowNum=titleRowNum;
+            this.dataRowNum = dataRowNum;
+            this.entityName = entityName;
+            readExcelData();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();  
         }catch (IOException e) {  
             e.printStackTrace();  
         }     
     }
-    
+
+    /**
+     *
+     * @param fis 导入文件输入流
+     * @param titleRowNum 导入模板标题行号
+     * @param dataRowNum 导入模板数据行号
+     * @param entityName 导入模板的模板配置名称
+     * @param sheetIndex sheet的下标
+     */
     public ParseExcelUtil(InputStream fis,int titleRowNum,int dataRowNum,String entityName, int sheetIndex){  
         try {  
         	this.workBook = new XSSFWorkbook(fis);  

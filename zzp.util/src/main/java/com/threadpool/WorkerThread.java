@@ -18,6 +18,7 @@ public class WorkerThread implements Runnable {
 	@Override
 	public void run() {
 		try {
+			Thread.currentThread().setName(workName);
 			Thread.sleep(1000);
 //			System.out.println(1 / 0);
 			System.out.println(workName + "任务执行完了");

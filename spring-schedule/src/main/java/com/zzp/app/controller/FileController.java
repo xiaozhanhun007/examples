@@ -1,22 +1,30 @@
 package com.zzp.app.controller;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * @Description 文件操作controller
@@ -106,6 +114,39 @@ public class FileController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 生成二维码，将二维码以base64的格式输出
+     */
+    @ResponseBody
+    @RequestMapping(value = "/qrCodeEncoderToBase64")
+    public Object qrCodeEncoderToBase64() {
+        Map<String,Object> response = new HashMap<String,Object>();
+        String contents = "www.hoolinks.com";
+        String formatName = "png";
+        String base64Header = "data:image/" + formatName + ";base64,";
+        Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>();
+        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+        BitMatrix matrix = null;
+        try {
+            matrix = new MultiFormatWriter().encode(contents, BarcodeFormat.QR_CODE, 300, 300, hints);
+            BufferedImage image = MatrixToImageWriter.toBufferedImage(matrix);
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ImageIO.write(image, formatName, os);//利用ImageIO类提供的write方法，将bi以png图片的数据模式写入流。
+            byte b[] = os.toByteArray();//从流中获取数据数组
+            String str = new Base64().encodeAsString(b);
+            String base64Str = base64Header + str;
+            response.put("status", 1);
+            response.put("message", "SUCCESS");
+            response.put("data", base64Str);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("status", 2);
+            response.put("message", "ERROR");
+            response.put("data", null);
+        }
+        return response;
     }
 
 }

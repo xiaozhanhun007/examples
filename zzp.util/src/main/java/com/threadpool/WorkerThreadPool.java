@@ -1,14 +1,23 @@
 package com.threadpool;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
 
 public class WorkerThreadPool {
 
+	//池中所保存的线程数，包括空闲线程。
+	final static int corePoolSize = 5;
+	//池中允许的最大线程数。
+	final static int maximumPoolSize = 10;
+	//当线程数大于核心线程时，此为终止前多余的空闲线程等待新任务的最长时间
+	final static long keepAliveTime = 300;
+	//执行前用于保持任务的队列5，即任务缓存队列
+	final static ArrayBlockingQueue<Runnable> workQueue =new ArrayBlockingQueue<Runnable>(5);
+
+
 	public static void main(String[] args) {
-		ThreadPoolExecutor workPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
-		
+
+		ThreadPoolExecutor workPool = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.MINUTES, workQueue);
+
 		while (true) {
 			for (int i = 0; i < 5; i++) {
 				WorkerThread workerThread = new WorkerThread("任务" + (i + 1));

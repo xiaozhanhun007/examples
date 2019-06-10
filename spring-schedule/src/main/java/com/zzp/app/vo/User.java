@@ -29,4 +29,8 @@ public class User implements Serializable{
      */
     private String loginId;
 
+    public String toString() {
+        return id + ", " + userName + ", " + loginId;
+    }
+
 }

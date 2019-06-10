@@ -16,24 +16,31 @@ public class DeadlockTest {
         Thread threadA = new Thread(new Runnable() {
             @Override
             public void run() {
-                accountA.transfer(accountB, 100);
+                accountA.transfer(accountB, 50);
             }
         });
 
         Thread threadB = new Thread(new Runnable() {
             @Override
             public void run() {
-                accountB.transfer(accountA, 150);
+                accountB.transfer(accountA, 250);
             }
         });
 
         threadA.start();
         threadB.start();
+        try {
+            threadA.join();
+            threadB.join();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         System.out.println("accountA余额：" + accountA.getBalance());
         System.out.println("accountB余额：" + accountB.getBalance());
 
         System.out.println("结束");
+
     }
 
 }

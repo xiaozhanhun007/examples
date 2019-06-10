@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.zzp.app.vo.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/index")
 public class IndexController {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@RequestMapping(value = "/test",method = RequestMethod.GET)
 	@ResponseBody
 	public Object test(HttpServletRequest request,Map<String, Object> map){
@@ -26,6 +30,7 @@ public class IndexController {
 		user.setId(1);
 		user.setLoginId("zzp");
 		user.setUserName("小朋司机");
+		logger.info(user.toString());
 		return user;
 	}
 	

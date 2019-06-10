@@ -30,6 +30,10 @@ public class IndexController {
 		user.setId(1);
 		user.setLoginId("zzp");
 		user.setUserName("小朋司机");
+		user = null;
+		if (user == null) {
+			throw new RuntimeException();
+		}
 		logger.info(user.toString());
 		return user;
 	}

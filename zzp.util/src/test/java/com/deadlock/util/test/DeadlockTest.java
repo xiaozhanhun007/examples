@@ -13,19 +13,11 @@ public class DeadlockTest {
         final Account accountA = new Account(200);
         final Account accountB = new Account(300);
 
-        Thread threadA = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                accountA.transfer(accountB, 50);
-            }
-        });
+        Thread threadA = new Thread(() -> accountA.transfer(accountB, 50));
+        threadA.setName("test-thread-A");
 
-        Thread threadB = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                accountB.transfer(accountA, 250);
-            }
-        });
+        Thread threadB = new Thread(() -> accountB.transfer(accountA, 250));
+        threadB.setName("test-thread-B");
 
         threadA.start();
         threadB.start();

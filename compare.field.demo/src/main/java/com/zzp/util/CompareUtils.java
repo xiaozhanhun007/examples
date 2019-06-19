@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 
 import com.zzp.annontation.CompareField;
@@ -124,6 +125,36 @@ public class CompareUtils {
 	 */
 	private static long date2TimeStamp(Date date){
 		return date.getTime();
+	}
+
+	/**
+	 * 比较类和json字符串中相同的属性
+	 * @param clazz
+	 * @param jsonStr
+	 * @return
+	 */
+	public static List<String> compareIdenticalField(Class clazz, String jsonStr) {
+		// 将json字符串转换为json对象
+		JSONObject jsonObject = JSONObject.parseObject(jsonStr);
+
+		//
+		Field[] fields = clazz.getDeclaredFields();
+		if (fields != null && fields.length > 0) {
+			List<String> result = new ArrayList<String>();
+			for (int i = 0; i < fields.length; i++) {
+				Field field = fields[i];
+				String fieldName = field.getName();
+				Object value = jsonObject.get(fieldName);
+				if (value != null && String.valueOf(value).equals("true")) {
+					// 表示该字段需要显示
+					CompareField compareField = field.getAnnotation(CompareField.class);
+					String fieldDescribe = compareField.fieldName();
+					result.add("字段名称：" + fieldName + "，字段中文描述：" + fieldDescribe);
+				}
+			}
+			return result;
+		}
+		return null;
 	}
 	
 }

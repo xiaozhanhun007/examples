@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.zzp.annontation.CompareField;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 /**
  * 比较属性工具类
@@ -155,6 +157,78 @@ public class CompareUtils {
 			return result;
 		}
 		return null;
+	}
+
+	/**
+	 * 将实体列表转换为Map列表
+	 * @param list 实体列表
+	 * @param <T>
+	 * @return
+	 */
+	public static <T> List<Map> beansToMaps(List<T> list) {
+		if (list != null && list.size() > 0) {
+			List<Map> listMap = new ArrayList<Map>();
+			for (int i = 0; i < list.size(); i++) {
+				T t = list.get(i);
+				Map map = beanToMap(t);
+				if (map != null && map.size() > 0) {
+					listMap.add(map);
+				}
+			}
+			return listMap;
+		}
+		return null;
+	}
+
+	/**
+	 * 将实体转换为map，不会将为null的属性也进行转换
+	 * @param t 实体
+	 * @param <T>
+	 * @return
+	 */
+	public static <T> Map beanToMap(T t) {
+		Field[] fields = t.getClass().getDeclaredFields();
+		if (fields != null && fields.length > 0) {
+			Map map = new HashMap<String, Object>();
+			for (int i = 0; i < fields.length; i++) {
+				Field field = fields[i];
+				field.setAccessible(true);
+				String fieldName = field.getName();
+				try {
+					Object value = field.get(t);
+					if (value == null)
+						continue;
+
+					if (value instanceof Date) {
+						String dateStr = DateFormatUtils.format((Date) value, "yyyy-MM-dd HH:mm:ss");
+						map.put(fieldName, dateStr);
+						continue;
+					}
+
+					map.put(fieldName, value);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			return map;
+		}
+		return null;
+	}
+
+	/**
+	 * 将实体转换为map，使用apache的BeanUtils，会将为null的属性也进行转换
+	 * @param t 实体
+	 * @param <T>
+	 * @return
+	 */
+	public static <T> Map beanToMap2(T t) {
+		try {
+			Map map = BeanUtils.describe(t);
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }

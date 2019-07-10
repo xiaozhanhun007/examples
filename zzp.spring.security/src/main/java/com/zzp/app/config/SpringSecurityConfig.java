@@ -41,15 +41,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
-                .loginPage("/login.html")
+//                .loginPage("/login.htm.")// 用户名密码登录
+                .loginPage("/smsCodeLogin.html")// 短信验证码登录
                 .loginProcessingUrl("/login")
                 .and()
-                .authorizeRequests()
-                .antMatchers("/login.html", "/smsCodeLogin.html", "/smsCode/get").permitAll()
-                .anyRequest()
-                .authenticated()
+                    .authorizeRequests()
+                    .antMatchers("/login.html", "/smsCodeLogin.html", "/smsCode/get").permitAll()
+                    .anyRequest()
+                    .authenticated()
                 .and()
-                .csrf().disable()
+                    .sessionManagement() // session失效后的跳转地址
+                    .invalidSessionUrl("")
+//                    .maximumSessions(1)// 表示同一个账号同一时刻最多能登录1个，但是只能对用户名密码登录有效
+                .and()
+                    .csrf().disable()
                 .apply(smsAuthenticationConfig);
     }
 }

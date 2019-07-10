@@ -1,2 +1,4 @@
 server:
   port: 8999
+  session:
+    timeout: 1800

@@ -1,5 +1,6 @@
 package zzp.util.test;
 
+import com.util.exception.ExceptionPrintUtil;
 import sun.security.action.GetPropertyAction;
 
 import java.security.AccessController;
@@ -23,6 +24,15 @@ public class StringTest {
         String sub = str.substring(str.indexOf(":") + 1, str.indexOf(lineSeparator));
         System.out.println(sub);
         System.out.println("换行符：" + lineSeparator + "，结束");
+
+        try {
+            System.out.println(1 / 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+            String exceptionStr = ExceptionPrintUtil.printStackTraceToString(e);
+            System.out.println(ExceptionPrintUtil.analysisExceptionMessage(exceptionStr));
+        }
 
 
     }

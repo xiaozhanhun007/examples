@@ -1,7 +1,11 @@
 package com.util.exception;
 
+import org.apache.commons.lang3.StringUtils;
+import sun.security.action.GetPropertyAction;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.security.AccessController;
 
 /**
  * @Description 异常转换为字符串
@@ -26,6 +30,21 @@ public class ExceptionPrintUtil {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * 根据异常信息字符串来解析出异常的信息
+     * @param exceptionStr 异常信息字符串
+     * @return
+     */
+    public static String analysisExceptionMessage(String exceptionStr) {
+        if (StringUtils.isNotBlank(exceptionStr)) {
+            // 获取当前系统的换行符
+            String lineSeparator = (String) AccessController.doPrivileged(new GetPropertyAction("line.separator"));
+            String message = exceptionStr.substring(exceptionStr.indexOf(":") + 1, exceptionStr.indexOf(lineSeparator));
+            return message.trim();
+        }
+        return null;
     }
 
 }

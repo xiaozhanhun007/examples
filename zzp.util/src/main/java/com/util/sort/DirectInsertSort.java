@@ -46,16 +46,10 @@ public class DirectInsertSort {
         return null;
     }
 
-    public static void print(int[] array){
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
-        }
-    }
-
     public static void main(String[] args) {
-        int[] array = new int[]{5, 76, 12, 95, 45, 23, 109, 64, 99};
+        int[] array = ArrayUtil.randomArray(1000, 40);
         directInsertSort(array, SortTypeEnum.DESC.getCode());
-        print(array);
+        ArrayUtil.print(array);
     }
 
 }

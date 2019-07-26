@@ -8,12 +8,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.util.convert.ConvertUtil;
-import com.util.mapsort.MapSort;
+import com.util.sort.MapSort;
 
 /**
  * http请求工具类

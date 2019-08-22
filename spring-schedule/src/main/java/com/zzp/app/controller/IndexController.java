@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.zzp.app.config.RountingInjected;
+import com.zzp.app.service.HelloService;
 import com.zzp.app.vo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,9 @@ public class IndexController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@RountingInjected(value = "helloV2ServiceImpl")
+	private HelloService helloService;
+
 	@RequestMapping(value = "/test",method = RequestMethod.GET)
 	@ResponseBody
 	public Object test(HttpServletRequest request,Map<String, Object> map){
@@ -30,11 +35,13 @@ public class IndexController {
 		user.setId(1);
 		user.setLoginId("zzp");
 		user.setUserName("小朋司机");
-		user = null;
-		if (user == null) {
-			throw new RuntimeException();
-		}
+//		user = null;
+//		if (user == null) {
+//			throw new RuntimeException();
+//		}
 		logger.info(user.toString());
+		helloService.sayHello();
+		helloService.sayHi();
 		return user;
 	}
 	

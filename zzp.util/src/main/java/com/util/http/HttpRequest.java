@@ -185,8 +185,21 @@ public class HttpRequest {
      * @return String 响应结果
      */
     public static String sendPost(String url, String param) {
-    	//去除参数中可能含有的空格
-    	param = ConvertUtil.trimSpace(param);
+        return sendPost(url, param, null);
+    }
+
+    /**
+     * 向指定 URL 发送POST方法的请求
+     *
+     * @param url 发送请求的 URL
+     * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式
+     * @param requestPropertys 请求属性
+     *
+     * @return String 响应结果
+     */
+    public static String sendPost(String url, String param, Map<String, String> requestPropertys) {
+        //去除参数中可能含有的空格
+        param = ConvertUtil.trimSpace(param);
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
@@ -198,6 +211,11 @@ public class HttpRequest {
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            if (requestPropertys != null && requestPropertys.size() > 0) {
+                for (Map.Entry<String, String> entry : requestPropertys.entrySet()) {
+                    conn.setRequestProperty(entry.getKey(), entry.getValue());
+                }
+            }
             //设置连接超时时间，必须设置，否则会让程序卡在请求连接
             conn.setConnectTimeout(15000);
             //设置读超时时间，必须设置，否则会让程序卡在读内容中
@@ -236,6 +254,6 @@ public class HttpRequest {
             }
         }
         return result;
-    }    
+    }
 
 }

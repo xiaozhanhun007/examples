@@ -27,8 +27,6 @@ public class MyClassCoaderTest {
                 System.out.println("不相等");
             }
 
-            Class clazz2 = myClassLoader.loadClass("com.zzp.demo.MyClassCoaderTest", false);
-            Object object2 = clazz.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }

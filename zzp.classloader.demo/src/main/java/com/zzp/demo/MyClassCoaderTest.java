@@ -10,7 +10,7 @@ public class MyClassCoaderTest {
     public static void main(String[] args) {
         try {
             MyClassLoader myClassLoader = new MyClassLoader();
-            Class clazz = myClassLoader.loadClass("com.zzp.demo.MyClassCoaderTest");
+            Class clazz = myClassLoader.loadClass("com.zzp.demo.MyClassCoaderTest", false);
             Object object = clazz.newInstance();
             System.out.println(object.getClass());
             System.out.println(object.getClass().getClassLoader());
@@ -26,6 +26,9 @@ public class MyClassCoaderTest {
             } else {
                 System.out.println("不相等");
             }
+
+            Class clazz2 = myClassLoader.loadClass("com.zzp.demo.MyClassCoaderTest", false);
+            Object object2 = clazz.newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -8,7 +8,7 @@ package com.zzp.thread.test;
 public class DuplicationCheckSingletonTest {
 
     public static void main(String[] args) {
-        Thread thread1 = new Thread(new Runnable() {
+        Thread threadA = new Thread(new Runnable() {
             @Override
             public void run() {
                 System.out.println(Thread.currentThread() + " - " + DuplicationCheckSingleton.getInstance());
@@ -16,7 +16,7 @@ public class DuplicationCheckSingletonTest {
             }
         });
 
-        Thread thread2 = new Thread(new Runnable() {
+        Thread threadB = new Thread(new Runnable() {
             @Override
             public void run() {
                 System.out.println(Thread.currentThread() + " - " + DuplicationCheckSingleton.getInstance());
@@ -24,8 +24,8 @@ public class DuplicationCheckSingletonTest {
             }
         });
 
-        thread1.start();
-        thread2.start();
+        threadA.start();
+        threadB.start();
     }
 
 }

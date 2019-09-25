@@ -10,6 +10,7 @@ import com.zzp.app.vo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,21 +29,13 @@ public class IndexController {
 	@RountingInjected(value = "helloV2ServiceImpl")
 	private HelloService helloService;
 
-	@RequestMapping(value = "/test",method = RequestMethod.GET)
+	@RequestMapping(value = "/test",method = RequestMethod.POST)
 	@ResponseBody
-	public Object test(HttpServletRequest request,Map<String, Object> map){
-		User user = new User();
-		user.setId(1);
-		user.setLoginId("zzp");
-		user.setUserName("小朋司机");
-//		user = null;
-//		if (user == null) {
-//			throw new RuntimeException();
-//		}
-		logger.info(user.toString());
+	public Object test(HttpServletRequest request, @RequestBody User userDto){
+		logger.info(userDto.toString());
 		helloService.sayHello();
 		helloService.sayHi();
-		return user;
+		return userDto;
 	}
 	
 }

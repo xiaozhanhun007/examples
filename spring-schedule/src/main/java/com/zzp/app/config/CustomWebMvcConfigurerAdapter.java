@@ -20,6 +20,7 @@ public class CustomWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         MappingJackson2HttpMessageConverterExt convert0 = new MappingJackson2HttpMessageConverterExt();
+        // 将自定义的converter添加到converters
         converters.add(convert0);
 
         super.configureMessageConverters(converters);

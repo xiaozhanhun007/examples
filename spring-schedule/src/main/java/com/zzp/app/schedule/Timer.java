@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Timer {
 
-	@Scheduled(cron = "0/5 * * * * *")
+//	@Scheduled(cron = "0/5 * * * * *")
 	public void timer1() {
 		System.out.println("执行一次定时任务！");
 	}

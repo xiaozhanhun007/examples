@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -34,6 +35,19 @@ public class IndexController {
 		helloService.sayHello();
 		helloService.sayHi();
 		return userDto;
+	}
+
+	@RequestMapping(value = "/test2",method = RequestMethod.GET)
+	@ResponseBody
+	public Object test2(HttpServletRequest request,
+						@RequestParam(value = "id", required = true) Integer id,
+						@RequestParam(value = "userName", required = true) String userName,
+						@RequestParam(value = "loginId", required = true) String loginId){
+		User user = new User();
+		user.setId(id);
+		user.setUserName(userName);
+		user.setLoginId(loginId);
+		return user;
 	}
 
 }

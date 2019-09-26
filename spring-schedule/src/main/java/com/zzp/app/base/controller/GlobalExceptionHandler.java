@@ -2,8 +2,11 @@ package com.zzp.app.base.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,4 +46,11 @@ public class GlobalExceptionHandler {
 
         return "系统异常";
     }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        // Controller中使用了@RequestParam注解的String类型参数，如果传入的是空字符串""，则会将其转换为null
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    }
+
 }

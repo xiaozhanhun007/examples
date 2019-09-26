@@ -27,11 +27,14 @@ public class MappingJackson2HttpMessageConverterExt extends MappingJackson2HttpM
 
     @Override
     public Object read(Type type, Class<?> contextClass, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+        // 获取请求headers中的MediaType
         MediaType contentType = inputMessage.getHeaders().getContentType();
         Charset charset = contentType.getCharSet() != null ? contentType.getCharSet() : DEFAULT_CHARSET;
         String content = FileCopyUtils.copyToString(new InputStreamReader(inputMessage.getBody(), charset));
+        // 获取请求headers中的Content-Type
         String contentTypeStr = contentType.getType() + "/" + contentType.getSubtype();
         if (StringUtils.isNotBlank(contentTypeStr) && contentTypeStr.equals("application/json")) {
+            // 如果Content-Type的类型是application/json，则将双引号""转换为null
             content = content.replace("\"\"", "null");
         }
         JavaType javaType = getJavaType(type, contextClass);

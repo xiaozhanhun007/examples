@@ -1,17 +1,15 @@
 package com.pdf.util;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfCopy;
 import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -27,9 +25,19 @@ public class PDFMerge {
      * @throws Exception
      */
     public void merge(String fileDir) throws Exception {
+        merge(fileDir, fileDir + File.separator + "merge.pdf");
+    }
+
+    /**
+     * 合并文件夹下的pdf文件，并将合并后的内容输出到目标文件
+     * @param fileDir
+     * @param destinationFile
+     * @throws Exception
+     */
+    public void merge(String fileDir, String destinationFile) throws Exception {
         File folder = new File(fileDir);
         if (!folder.exists()) {
-            throw new FileNotFoundException("找不到对应目录");
+            throw new FileNotFoundException(fileDir + "找不到对应目录");
         }
 
         if (!folder.isDirectory()) {
@@ -38,7 +46,7 @@ public class PDFMerge {
 
         List<PdfReader> readers = getPdfReaders(getFiles(folder));
         if (readers == null || readers.size() == 0) {
-            throw new IndexOutOfBoundsException("该目录下不存在文件");
+            throw new FileNotFoundException(fileDir + "该目录下不存在文件");
         }
 
         int totalPages = 0;
@@ -46,32 +54,56 @@ public class PDFMerge {
             totalPages += readers.get(i).getNumberOfPages();
         }
 
-        FileOutputStream out = new FileOutputStream(fileDir + "mergePDF.pdf");
+        FileOutputStream out = new FileOutputStream(destinationFile);
         Document document = new Document();
-        PdfWriter writer = PdfWriter.getInstance(document, out);
+
+        PdfCopy copy = new PdfCopy(document, out);
 
         document.open();
-        PdfContentByte cb = writer.getDirectContent();
 
-        int pageOfCurrentReaderPDF = 0;
-        Iterator<PdfReader> iteratorPDFReader = readers.iterator();
+        for(int i=0; i<readers.size(); i++)
+        {
+            PdfReader reader = readers.get(i);
 
-        // Loop through the PDF files and add to the output.
-        while (iteratorPDFReader.hasNext()) {
-            PdfReader pdfReader = iteratorPDFReader.next();
+            int n = reader.getNumberOfPages();
 
-            // Create a new page in the target for each source page.
-            while (pageOfCurrentReaderPDF < pdfReader.getNumberOfPages()) {
+            for(int j=1; j<=n; j++)
+            {
                 document.newPage();
-                pageOfCurrentReaderPDF++;
-                PdfImportedPage page = writer.getImportedPage(pdfReader, pageOfCurrentReaderPDF);
-                cb.addTemplate(page, 0, 0);
+                PdfImportedPage page = copy.getImportedPage(reader, j);
+                copy.addPage(page);
             }
-            pageOfCurrentReaderPDF = 0;
         }
-        out.flush();
+
         document.close();
-        out.close();
+
+//        PdfWriter writer = PdfWriter.getInstance(document, out);
+//
+//        document.open();
+//        PdfContentByte cb = writer.getDirectContent();
+//
+//        int pageOfCurrentReaderPDF = 0;
+//        Iterator<PdfReader> iteratorPDFReader = readers.iterator();
+//
+//        document.setPageSize(PageSize.A4.rotate());
+//        document.setMargins(0, 0, 0, -100);
+//
+//        // Loop through the PDF files and add to the output.
+//        while (iteratorPDFReader.hasNext()) {
+//            PdfReader pdfReader = iteratorPDFReader.next();
+//
+//            // Create a new page in the target for each source page.
+//            while (pageOfCurrentReaderPDF < pdfReader.getNumberOfPages()) {
+//                document.newPage();
+//                pageOfCurrentReaderPDF++;
+//                PdfImportedPage page = writer.getImportedPage(pdfReader, pageOfCurrentReaderPDF);
+//                cb.addTemplate(page, 0, 0);
+//            }
+//            pageOfCurrentReaderPDF = 0;
+//        }
+//        out.flush();
+//        document.close();
+//        out.close();
     }
 
     /**
@@ -117,7 +149,7 @@ public class PDFMerge {
     public static void main(String[] args) {
         PDFMerge pdfMerge = new PDFMerge();
         try {
-            pdfMerge.merge("E:/pdfMergeTest/");
+            pdfMerge.merge("E:\\pdfMergeTest\\20191011155027769\\pdf", "E:\\pdfMergeTest\\20191011155027769\\pdf\\merge.pdf");
             System.out.println("合并完毕");
         } catch (Exception e) {
             e.printStackTrace();

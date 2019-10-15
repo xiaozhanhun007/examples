@@ -20,7 +20,7 @@ import java.util.Map;
  * @Author Garyzeng
  * @since 2019.10.15
  **/
-public class PoiUitl {
+public class PoiUtil {
 
     /**
      * 功能：拷贝sheet

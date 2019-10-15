@@ -49,7 +49,7 @@ public class ExcelMergeUtil {
                 if (printSetupOption != null) {
                     setPrintOptions(newSheet, printSetupOption);
                 }
-                PoiUitl.copySheet(newSheet, oldSheet, destinationExcel, excel);
+                PoiUtil.copySheet(newSheet, oldSheet, destinationExcel, excel);
             }
         }
 

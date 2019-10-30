@@ -10,6 +10,7 @@ import java.lang.reflect.Proxy;
 public class CodeProxyTest {
 
     public static void main(String[] args) {
+        System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
         CodeInvocationHandler invocationHandler = new CodeInvocationHandler(new CodeServiceImpl());
         CodeService codeServiceProxy = (CodeService) Proxy.newProxyInstance(CodeProxyTest.class.getClassLoader(), new Class[]{CodeService.class}, invocationHandler);
         codeServiceProxy.codeJava();

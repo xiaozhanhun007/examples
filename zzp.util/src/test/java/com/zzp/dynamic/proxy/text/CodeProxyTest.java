@@ -10,7 +10,7 @@ import java.lang.reflect.Proxy;
 public class CodeProxyTest {
 
     public static void main(String[] args) {
-        // 让生成的代理类保存到本地
+        // 让生成的代理类class文件保存到本地
         System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
         CodeInvocationHandler invocationHandler = new CodeInvocationHandler(new CodeServiceImpl());
         CodeService codeServiceProxy = (CodeService) Proxy.newProxyInstance(CodeProxyTest.class.getClassLoader(), new Class[]{CodeService.class}, invocationHandler);

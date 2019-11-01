@@ -18,8 +18,7 @@ public class CodeProxyTest {
         enhancer.setCallback(new CodeMethodInterceptor());
         // 创建代理对象
         CodeService proxy= (CodeService)enhancer.create();
-        proxy.codeJava();
-
+        proxy.codePhp();
     }
 
 }

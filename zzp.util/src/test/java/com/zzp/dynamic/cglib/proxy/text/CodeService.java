@@ -10,4 +10,12 @@ public class CodeService {
     public void codeJava() {
         System.out.println("编写Java程序");
     }
+
+    protected void codePhp() {
+        System.out.println("编写PHP程序");
+    }
+
+    void codePython() {
+        System.out.println("编写Python程序");
+    }
 }

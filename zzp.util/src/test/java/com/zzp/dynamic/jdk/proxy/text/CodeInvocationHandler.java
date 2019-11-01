@@ -1,4 +1,4 @@
-package com.zzp.dynamic.proxy.text;
+package com.zzp.dynamic.jdk.proxy.text;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

@@ -1,4 +1,4 @@
-package com.zzp.dynamic.proxy.text;
+package com.zzp.dynamic.jdk.proxy.text;
 
 /**
  * 实现类

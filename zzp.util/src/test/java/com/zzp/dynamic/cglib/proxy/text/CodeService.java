@@ -6,4 +6,8 @@ package com.zzp.dynamic.cglib.proxy.text;
  * @since 2019.11.01
  **/
 public class CodeService {
+
+    public void codeJava() {
+        System.out.println("编写Java程序");
+    }
 }

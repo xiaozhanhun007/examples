@@ -31,7 +31,8 @@ public abstract class Cache<K, V> {
             // 获取写锁
             writeLock.lock();
             try {
-                // 再次检查状态，防止多线程的访问的时候，重复put值
+                // 再次检查状态，防止多线程访问的时候，重复put值
+                value = m.get(key);
                 if (!cacheValid(value)) {
                     // put值
                     V newValue = getValue(key);
@@ -50,6 +51,7 @@ public abstract class Cache<K, V> {
         try {
             return value;
         } finally {
+            // 释放读锁
             readLock.unlock();
         }
     }

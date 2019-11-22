@@ -37,7 +37,7 @@ public class TimeCacheTest {
             @Override
             public void run() {
                 for (int i = 0; i < 100; i++) {
-                    String key = "TEST-B";
+                    String key = "TEST-A";
                     TimeValue value = cache.get(key);
                     String nowDateStr = DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss");
                     System.out.println(nowDateStr + " -- " + Thread.currentThread().getName() + " -- key:" + key + ",value:" + JSON.toJSONString(value));

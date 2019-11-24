@@ -8,7 +8,7 @@ import java.util.List;
  * @Author Garyzeng
  * @since 2019.11.22
  **/
-public class TimeValue implements Serializable {
+public class TimeValue extends TimeBaseValue implements Serializable {
 
     private static final long serialVersionUID = -1L;
 
@@ -16,11 +16,6 @@ public class TimeValue implements Serializable {
      * 内容
      */
     private List<String> list;
-
-    /**
-     * 创建该缓存的时间戳
-     */
-    private Long timestamp;
 
     public List<String> getList() {
         return list;
@@ -30,11 +25,4 @@ public class TimeValue implements Serializable {
         this.list = list;
     }
 
-    public Long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Long timestamp) {
-        this.timestamp = timestamp;
-    }
 }

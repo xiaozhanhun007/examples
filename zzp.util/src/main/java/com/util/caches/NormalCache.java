@@ -9,15 +9,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  **/
 public class NormalCache extends Cache<String, Object>{
 
-    private final AtomicInteger atomicInteger = new AtomicInteger(0);
+//    private final AtomicInteger atomicInteger = new AtomicInteger(0);
 
     @Override
     protected boolean cacheValid(Object value) {
         return value != null;
     }
 
-    @Override
-    protected Object getValue(String key) {
-        return key + "-" + atomicInteger.incrementAndGet();
-    }
+//    @Override
+//    protected Object getValue(String key) {
+//        return key + "-" + atomicInteger.incrementAndGet();
+//    }
 }

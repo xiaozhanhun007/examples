@@ -24,6 +24,21 @@ public class ExcelImageUtils {
         insertImageToExcel(excelFilePath, imgPath, imgType, 0, 0, 0, 0, (short) 38, 0, (short) 51, 1);
     }
 
+    /**
+     * 插入图片到excel文件中
+     * @param excelFilePath excel文件路径
+     * @param imgPath 图片路径
+     * @param imgType 图片类型
+     * @param dx1 起始单元格x坐标
+     * @param dy1 起始单元格y坐标
+     * @param dx2 结束单元格x坐标
+     * @param dy2 结束单元格y坐标
+     * @param col1 指定起始的单元格列，下标从0开始
+     * @param row1 指定起始的单元格行，下标从0开始
+     * @param col2 指定结束的单元格列，下标从0开始
+     * @param row2 指定结束的单元格行，下标从0开始
+     * @throws Exception
+     */
     public static void insertImageToExcel(String excelFilePath, String imgPath, String imgType, int dx1, int dy1, int dx2, int dy2, short col1, int row1, short col2, int row2) throws Exception{
         int PICTURE_TYPE = 0;
         if (imgType.equals("png")) {

@@ -22,6 +22,8 @@ import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @Description 条形码工具
@@ -41,14 +43,34 @@ public class BarCode {
      * @param height
      * @param imgPath
      */
-    public static void create(String contents, int width, int height, String imgPath) {
+    public static void create(String contents, int width, int height, String imgPath) throws Exception{
         int codeWidth = 40;
         codeWidth = Math.max(codeWidth, width);
-        try {
-            BitMatrix bitMatrix = new MultiFormatWriter().encode(contents, BarcodeFormat.CODE_128, codeWidth, height, null);
-            MatrixToImageWriter.writeToPath(bitMatrix, "png", Paths.get(imgPath));
-        } catch (Exception e) {
-            e.printStackTrace();
+        BitMatrix bitMatrix = new MultiFormatWriter().encode(contents, BarcodeFormat.CODE_128, codeWidth, height, null);
+        MatrixToImageWriter.writeToPath(bitMatrix, "png", Paths.get(imgPath));
+    }
+
+    /**
+     * 批量生成条形码
+     * @param exportImgFolderPath 生成的条形码存放的文件夹
+     * @param barCodeContents 条形码文件名和内容键值对
+     * @param width 条形码的宽
+     * @param height 条形码的高
+     * @throws Exception
+     */
+    public static void batchCreate(String exportImgFolderPath, Map<String, String> barCodeContents, int width, int height) throws Exception{
+        if (barCodeContents != null && barCodeContents.size() > 0) {
+            File exportImgFolder = new File(exportImgFolderPath);
+            if (!exportImgFolder.exists()) {
+                exportImgFolder.mkdirs();
+            }
+            Iterator<Map.Entry<String, String>> entries = barCodeContents.entrySet().iterator();
+            while (entries.hasNext()) {
+                Map.Entry<String, String> entry = entries.next();
+                String imgPath = exportImgFolderPath + File.separator + entry.getKey();
+                String contents = entry.getValue();
+                create(contents, width, height, imgPath);
+            }
         }
     }
 
@@ -61,26 +83,22 @@ public class BarCode {
      * @param imgPath
      * @param words 条形码下面显示的文字
      */
-    public static void create(String contents, int width, int height, String imgPath, String words) {
+    public static void create(String contents, int width, int height, String imgPath, String words) throws Exception{
         int codeWidth = 40;
         codeWidth = Math.max(codeWidth, width);
-        try {
-            BitMatrix bitMatrix = new MultiFormatWriter().encode(contents, BarcodeFormat.CODE_128, codeWidth, height, null);
-            // 开始利用二维码数据创建Bitmap图片，分别设为黑（0xFFFFFFFF）白（0xFF000000）两色
-            BufferedImage image = new BufferedImage(codeWidth, height, BufferedImage.TYPE_INT_RGB);
-            for (int x = 0; x < width; x++) {
-                for (int y = 0; y < height; y++) {
-                    image.setRGB(x, y, bitMatrix.get(x, y) ? QRCOLOR : BGWHITE);
-                }
+        BitMatrix bitMatrix = new MultiFormatWriter().encode(contents, BarcodeFormat.CODE_128, codeWidth, height, null);
+        // 开始利用二维码数据创建Bitmap图片，分别设为黑（0xFFFFFFFF）白（0xFF000000）两色
+        BufferedImage image = new BufferedImage(codeWidth, height, BufferedImage.TYPE_INT_RGB);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                image.setRGB(x, y, bitMatrix.get(x, y) ? QRCOLOR : BGWHITE);
             }
-
-            image=insertWords(image,words, width, height, height + 20);
-
-            image.flush();
-            ImageIO.write(image, "png", new File(imgPath));
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+        image=insertWords(image,words, width, height, height + 20);
+
+        image.flush();
+        ImageIO.write(image, "png", new File(imgPath));
     }
 
     /**
@@ -163,14 +181,18 @@ public class BarCode {
      * @param args
      */
     public static void main(String[] args) {
-        String imgPath = "E:/zzp/test.png";
-        String contents = "692655730036095845";
-        int width = 440, height = 60;
-        create(contents, width, height, imgPath, contents);
-        System.out.println("finished zxing EAN-13 encode.");
+        try {
+            String imgPath = "E:/zzp/test.png";
+            String contents = "692655730036095845";
+            int width = 440, height = 60;
+            create(contents, width, height, imgPath, contents);
+            System.out.println("finished zxing EAN-13 encode.");
 //        String decodeContent = decode(imgPath);
 //        System.out.println("解码内容如下：" + decodeContent);
 //        System.out.println("finished zxing EAN-13 decode.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

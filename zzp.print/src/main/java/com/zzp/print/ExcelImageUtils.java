@@ -50,12 +50,12 @@ public class ExcelImageUtils {
         if (!imgFolder.exists()) {
             throw new FileNotFoundException("找不到imgFolder文件夹");
         }
-        List<String> imgNames = FileUtils.getFilePaths(imgFolder);
-        if (imgNames == null || imgNames.size() == 0) {
+        List<File> imgFiles = FileUtils.getFiles(imgFolder);
+        if (imgFiles == null || imgFiles.size() == 0) {
             throw new FileNotFoundException("imgFolder文件夹不存在图片");
         }
-        for (int i = 0; i < imgNames.size(); i++) {
-            String imgName = imgNames.get(i);
+        for (int i = 0; i < imgFiles.size(); i++) {
+            String imgName = imgFiles.get(i).getName();
             String imgNamePrefix = imgName.substring(0, imgName.lastIndexOf("."));
             String excelName = imgNamePrefix + ".xls";
             String imgPath = imgFolderPath + File.separator + imgName;
@@ -108,10 +108,115 @@ public class ExcelImageUtils {
         wb.write(fileOut);
     }
 
+    /**
+     * 插入多张图片到excel文件对应的sheet中，图片名称必须和sheet的名称一致才能将图片插入到相应的sheet中
+     * @param excelFilePath excel文件路径
+     * @param imgFolderPath 图片路径
+     * @param imgType 图片类型
+     * @param dx1 起始单元格x坐标
+     * @param dy1 起始单元格y坐标
+     * @param dx2 结束单元格x坐标
+     * @param dy2 结束单元格y坐标
+     * @param col1 指定起始的单元格列，下标从0开始
+     * @param row1 指定起始的单元格行，下标从0开始
+     * @param col2 指定结束的单元格列，下标从0开始
+     * @param row2 指定结束的单元格行，下标从0开始
+     * @throws Exception
+     */
+    public static void insertImagesToExcelSheets(String excelFilePath, String imgFolderPath, String imgType, int dx1, int dy1, int dx2, int dy2, short col1, int row1, short col2, int row2) throws Exception{
+        File excelFile = new File(excelFilePath);
+        if (!excelFile.exists()) {
+            throw new FileNotFoundException("找不到excelFile文件");
+        }
+        File imgFolder = new File(imgFolderPath);
+        if (!imgFolder.exists()) {
+            throw new FileNotFoundException("找不到img文件夹");
+        }
+        List<File> imgFiles = FileUtils.getFiles(imgFolder);
+        if (imgFiles == null || imgFiles.size() == 0) {
+            throw new FileNotFoundException("img文件夹下不存在图片文件");
+        }
+
+        int PICTURE_TYPE = 0;
+        if (imgType.equals("png")) {
+            PICTURE_TYPE = HSSFWorkbook.PICTURE_TYPE_PNG;
+        } else if(imgType.equals("jpg")) {
+            PICTURE_TYPE = HSSFWorkbook.PICTURE_TYPE_JPEG;
+        }
+        InputStream in = new FileInputStream(excelFilePath);
+        HSSFWorkbook wb = new HSSFWorkbook(in);
+
+        for (int i = 0; i < imgFiles.size(); i++) {
+            File imgFile = imgFiles.get(i);
+            String imgName = imgFile.getName();
+            String imgNamePrefix = imgName.substring(0, imgName.lastIndexOf("."));
+            ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+            BufferedImage bufferImg = ImageIO.read(imgFile);
+            ImageIO.write(bufferImg, imgType, byteArrayOut);
+            HSSFSheet sheet1 = wb.getSheet(imgNamePrefix);
+            HSSFPatriarch patriarch = sheet1.createDrawingPatriarch();
+            HSSFClientAnchor anchor = new HSSFClientAnchor(dx1, dy1, dx2, dy2, col1, row1, col2, row2);
+            patriarch.createPicture(anchor, wb.addPicture(byteArrayOut.toByteArray(), PICTURE_TYPE));
+        }
+
+        FileOutputStream fileOut = new FileOutputStream(excelFilePath);
+        wb.write(fileOut);
+    }
+
+    /**
+     * 插入图片到excel文件所有的sheet中
+     * @param excelFilePath excel文件路径
+     * @param imgPath 图片路径
+     * @param imgType 图片类型
+     * @param dx1 起始单元格x坐标
+     * @param dy1 起始单元格y坐标
+     * @param dx2 结束单元格x坐标
+     * @param dy2 结束单元格y坐标
+     * @param col1 指定起始的单元格列，下标从0开始
+     * @param row1 指定起始的单元格行，下标从0开始
+     * @param col2 指定结束的单元格列，下标从0开始
+     * @param row2 指定结束的单元格行，下标从0开始
+     * @throws Exception
+     */
+    public static void insertImageToExcelAllSheets(String excelFilePath, String imgPath, String imgType, int dx1, int dy1, int dx2, int dy2, short col1, int row1, short col2, int row2) throws Exception{
+        File excelFile = new File(excelFilePath);
+        if (!excelFile.exists()) {
+            throw new FileNotFoundException("找不到excelFile文件");
+        }
+        File imgFile = new File(imgPath);
+        if (!imgFile.exists()) {
+            throw new FileNotFoundException("找不到img文件");
+        }
+
+        int PICTURE_TYPE = 0;
+        if (imgType.equals("png")) {
+            PICTURE_TYPE = HSSFWorkbook.PICTURE_TYPE_PNG;
+        } else if(imgType.equals("jpg")) {
+            PICTURE_TYPE = HSSFWorkbook.PICTURE_TYPE_JPEG;
+        }
+        InputStream in = new FileInputStream(excelFilePath);
+        HSSFWorkbook wb = new HSSFWorkbook(in);
+
+        ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+        BufferedImage bufferImg = ImageIO.read(imgFile);
+        ImageIO.write(bufferImg, imgType, byteArrayOut);
+
+        for (int i = 0; i < wb.getNumberOfSheets(); i++) {
+            HSSFSheet sheet1 = wb.getSheetAt(i);
+            HSSFPatriarch patriarch = sheet1.createDrawingPatriarch();
+            HSSFClientAnchor anchor = new HSSFClientAnchor(dx1, dy1, dx2, dy2, col1, row1, col2, row2);
+            patriarch.createPicture(anchor, wb.addPicture(byteArrayOut.toByteArray(), PICTURE_TYPE));
+        }
+
+        FileOutputStream fileOut = new FileOutputStream(excelFilePath);
+        wb.write(fileOut);
+    }
+
     public static void main(String[] args) {
         try {
             System.out.println("插入开始");
-            insertImageToExcel("E:\\zzp\\exceltest\\merge.xls", "E:\\zzp\\exceltest\\test.png", "png");
+            insertImagesToExcelSheets("E:\\scmtemp\\batchExportBillFile\\I\\20191129092654252\\merge.xls", "E:\\scmtemp\\batchExportBillFile\\I\\20191129092654252\\barcode", "png", 0, 0, 0, 0, (short) 38, 0, (short) 51, 1);
+//            insertImageToExcelAllSheets("E:\\scmtemp\\batchExportBillFile\\I\\20191129092654252\\merge.xls", "E:\\scmtemp\\batchExportBillFile\\I\\20191129092654252\\logo.png", "png", 20, 20, 0, 0, (short) 2, 0, (short) 4, 2);
             System.out.println("插入完成");
         } catch (Exception e) {
             e.printStackTrace();

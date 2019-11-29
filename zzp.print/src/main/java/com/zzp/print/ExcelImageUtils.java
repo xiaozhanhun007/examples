@@ -216,7 +216,7 @@ public class ExcelImageUtils {
         try {
             System.out.println("插入开始");
             insertImagesToExcelSheets("E:\\scmtemp\\batchExportBillFile\\I\\20191129092654252\\merge.xls", "E:\\scmtemp\\batchExportBillFile\\I\\20191129092654252\\barcode", "png", 0, 0, 0, 0, (short) 38, 0, (short) 51, 1);
-//            insertImageToExcelAllSheets("E:\\scmtemp\\batchExportBillFile\\I\\20191129092654252\\merge.xls", "E:\\scmtemp\\batchExportBillFile\\I\\20191129092654252\\logo.png", "png", 20, 20, 0, 0, (short) 2, 0, (short) 4, 2);
+//            insertImageToExcelAllSheets("E:\\scmtemp\\batchExportBillFile\\I\\20191129092654252\\merge.xls", "E:\\scmtemp\\batchExportBillFile\\I\\20191129092654252\\logo.png", "png", 0, 0, 0, 0, (short) 2, 0, (short) 4, 2);
             System.out.println("插入完成");
         } catch (Exception e) {
             e.printStackTrace();

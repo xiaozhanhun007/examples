@@ -1,7 +1,9 @@
 package com.zzp.provider.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.zzp.provider.entity.TCoupon;
 import com.zzp.provider.entity.TSysUser;
+import com.zzp.provider.service.IMessageService;
 import com.zzp.provider.service.ITCouponService;
 import com.zzp.provider.service.ITSysUserService;
 import org.slf4j.Logger;
@@ -29,11 +31,15 @@ public class ProviderController {
     @Autowired
     private ITCouponService couponService;
 
+    @Autowired
+    private IMessageService messageService;
+
     @RequestMapping(value = "/sendMessage", method = RequestMethod.GET)
     @ResponseBody
     public TCoupon sendMessage() {
         TSysUser sysUser = sysUserService.getById(1);
         TCoupon coupon = couponService.getById(1);
+        messageService.sendMessage(JSON.toJSONString(coupon));
         return coupon;
     }
 

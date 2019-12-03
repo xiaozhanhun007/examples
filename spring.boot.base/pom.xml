@@ -9,7 +9,11 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
-        <spring.boot.version>2.0.3.RELEASE</spring.boot.version>
+        <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
+        <mysql.connector.version>5.1.46</mysql.connector.version>
+        <mybatis.plus.version>3.2.0</mybatis.plus.version>
+        <!-- mybatis-plus的代码生成器模板版本 -->
+        <freemarker.version>2.3.29</freemarker.version>
     </properties>
 
     <build>
@@ -48,13 +52,28 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.15</version>
+            <version>${mysql.connector.version}</version>
         </dependency>
 
+        <!-- mybatis-plus插件 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.2.0</version>
+            <version>${mybatis.plus.version}</version>
+        </dependency>
+
+        <!-- mybatis-plus代码生成器插件，mybatis-plus 3.0.5之后需要手动引入依赖 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis.plus.version}</version>
+        </dependency>
+
+        <!-- mybatis-plus代码生成器插件引擎模板，mybatis-plus 3.0.5之后需要手动引入依赖 -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${freemarker.version}</version>
         </dependency>
 
         <dependency>
@@ -67,6 +86,12 @@
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <version>1.9.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
         </dependency>
 
         <dependency>

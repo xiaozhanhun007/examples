@@ -1,6 +1,8 @@
 package com.zzp.provider.controller;
 
+import com.zzp.provider.entity.TCoupon;
 import com.zzp.provider.entity.TSysUser;
+import com.zzp.provider.service.ITCouponService;
 import com.zzp.provider.service.ITSysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +24,17 @@ public class ProviderController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private ITSysUserService tSysUserService;
+    private ITSysUserService sysUserService;
+
+    @Autowired
+    private ITCouponService couponService;
 
     @RequestMapping(value = "/sendMessage", method = RequestMethod.GET)
     @ResponseBody
-    public TSysUser sendMessage() {
-        TSysUser sysUser = tSysUserService.getById(1);
-        return sysUser;
+    public TCoupon sendMessage() {
+        TSysUser sysUser = sysUserService.getById(1);
+        TCoupon coupon = couponService.getById(1);
+        return coupon;
     }
 
 }

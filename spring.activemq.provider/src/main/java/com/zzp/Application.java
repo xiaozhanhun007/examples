@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.core.JmsMessagingTemplate;
@@ -25,6 +26,7 @@ import javax.jms.ConnectionFactory;
 @EnableScheduling
 @MapperScan("com.zzp.**.mapper")
 @EnableJms
+@PropertySource(value={"classpath:constants.properties"})
 public class Application {
 
 	public static void main(String[] args) {

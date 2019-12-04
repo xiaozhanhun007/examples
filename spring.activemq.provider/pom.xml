@@ -20,6 +20,7 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
+        <!-- spring activemq -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-activemq</artifactId>
@@ -32,6 +33,7 @@
             </exclusions>
         </dependency>
 
+        <!-- activemq连接池 -->
         <dependency>
             <groupId>org.apache.activemq</groupId>
             <artifactId>activemq-pool</artifactId>

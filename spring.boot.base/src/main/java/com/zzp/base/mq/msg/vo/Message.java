@@ -1,5 +1,9 @@
 package com.zzp.base.mq.msg.vo;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 
 /**
@@ -7,28 +11,17 @@ import java.io.Serializable;
  * @Author Garyzeng
  * @since 2019.12.07
  **/
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 public class Message<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    private String msgId;
 
     private String type;
 
     private T data;
 
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 }

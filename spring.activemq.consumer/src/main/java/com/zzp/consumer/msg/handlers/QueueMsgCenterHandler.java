@@ -19,9 +19,6 @@ import java.lang.reflect.Method;
 @Component
 public class QueueMsgCenterHandler {
 
-    @Autowired
-    private ApplicationContext applicationContext;
-
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @JmsListener(destination = "test_queue")

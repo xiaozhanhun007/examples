@@ -1,5 +1,7 @@
 package com.string.util;
 
+import java.util.UUID;
+
 /**
  * @Description 字符串工具类
  * @Author Garyzeng
@@ -38,10 +40,19 @@ public class StringUtils {
         return 0;
     }
 
+    /**
+     * 生成UUID
+     * @return
+     */
+    public static String UUID() {
+        return UUID.randomUUID().toString().replaceAll("-","");
+    }
+
     public static void main(String[] args) {
         String content = "1|1|缶4|34好的没问题安安定定aadded中e是打卡机冷风机aa";
         System.out.println(content.length());
         System.out.println(strByteLengthByStream(content));
+        System.out.println(UUID());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.zzp.provider.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.string.util.StringUtils;
 import com.zzp.base.mq.msg.vo.Message;
 import com.zzp.provider.entity.TCoupon;
 import com.zzp.provider.entity.TSysUser;
@@ -43,6 +44,7 @@ public class ProviderController {
         Message<TCoupon> msg = new Message<TCoupon>();
         msg.setType("Coupon");
         msg.setData(coupon);
+        msg.setMsgId(StringUtils.UUID());
         messageService.sendMessage(JSON.toJSONString(msg));
         return coupon;
     }

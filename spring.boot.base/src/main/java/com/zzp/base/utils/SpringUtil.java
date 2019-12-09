@@ -3,12 +3,14 @@ package com.zzp.base.utils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * @Description Spring工具类
  * @Author Garyzeng
  * @since 2019.12.08
  **/
+@Component
 public class SpringUtil implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext = null;

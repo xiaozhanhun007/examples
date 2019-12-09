@@ -45,6 +45,7 @@ public class ProviderController {
         msg.setType("Coupon");
         msg.setData(coupon);
         msg.setMsgId(StringUtils.UUID());
+//        msg.setMsgId("0681171f156a4129bf33f1e5296test1");
         messageService.sendMessage(JSON.toJSONString(msg));
         return coupon;
     }

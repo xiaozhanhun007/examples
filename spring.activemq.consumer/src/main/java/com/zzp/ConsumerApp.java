@@ -9,6 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -24,6 +27,7 @@ import javax.jms.ConnectionFactory;
 @ComponentScan(basePackages={"com.zzp"})
 @EnableScheduling
 @MapperScan("com.zzp.**.mapper")
+@EnableJms
 public class ConsumerApp {
 
     public static void main(String[] args) {
@@ -51,5 +55,21 @@ public class ConsumerApp {
     @Bean
     public JmsMessagingTemplate jmsMessageTemplate() {
         return new JmsMessagingTemplate(connectionFactory());
+    }
+
+    @Bean(name = "jmsListenerContainerTopic")
+    public JmsListenerContainerFactory<?> jmsListenerContainerTopic(ConnectionFactory activeMQConnectionFactory) {
+        DefaultJmsListenerContainerFactory bean = new DefaultJmsListenerContainerFactory();
+        bean.setPubSubDomain(true);
+        bean.setConnectionFactory(activeMQConnectionFactory);
+        return bean;
+    }
+
+    // queue模式的ListenerContainer
+    @Bean(name = "jmsListenerContainerQueue")
+    public JmsListenerContainerFactory<?> jmsListenerContainerQueue(ConnectionFactory activeMQConnectionFactory) {
+        DefaultJmsListenerContainerFactory bean = new DefaultJmsListenerContainerFactory();
+        bean.setConnectionFactory(activeMQConnectionFactory);
+        return bean;
     }
 }

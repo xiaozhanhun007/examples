@@ -1,6 +1,8 @@
 package com.zzp.consumer.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -39,6 +41,11 @@ public class TConsumeMessage implements Serializable {
      * 消息内容
      */
     private String content;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
 
 }

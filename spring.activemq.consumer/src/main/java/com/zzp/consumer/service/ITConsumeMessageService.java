@@ -13,4 +13,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITConsumeMessageService extends IService<TConsumeMessage> {
 
+    /**
+     * 根据消息id来查找消息
+     * @param msgId 消息id
+     * @return TConsumeMessage
+     */
+    TConsumeMessage getConsumeMessage(String msgId);
+
 }

@@ -21,7 +21,7 @@ public class QueueMsgCenterHandler {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @JmsListener(destination = "test_queue")
+    @JmsListener(destination = "test_queue", containerFactory = "jmsListenerContainerQueue")
     public void receiveMessage(String message) {
         logger.info("从mq的test_queue队列中接收到消息：" + message);
         JSONObject jsonObject = JSON.parseObject(message);

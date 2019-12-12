@@ -2,6 +2,7 @@ package com.zzp.provider.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zzp.base.enums.CommonJudgeEnum;
 import com.zzp.base.mq.msg.vo.Message;
 import com.zzp.provider.entity.TSendMessage;
 import com.zzp.provider.mapper.TSendMessageMapper;
@@ -29,6 +30,7 @@ public class TSendMessageServiceImpl extends ServiceImpl<TSendMessageMapper, TSe
     private IMessageService messageService;
 
     @Transactional
+    @Override
     public void saveMessageAndSendMq(Message message) {
         // 保存消息表示未发送到mq
         String content = JSON.toJSONString(message);
@@ -42,6 +44,7 @@ public class TSendMessageServiceImpl extends ServiceImpl<TSendMessageMapper, TSe
     }
 
     @Transactional
+    @Override
     public void updateSendFlag(String msgId, Integer sendFlag) {
         QueryWrapper<TSendMessage> queryWrapper = new QueryWrapper<TSendMessage>();
         queryWrapper.eq("msg_id", msgId);
@@ -52,6 +55,7 @@ public class TSendMessageServiceImpl extends ServiceImpl<TSendMessageMapper, TSe
         }
     }
 
+    @Override
     public void sendMqAndUpdateSendFlag(TSendMessage sendMessage) {
         try {
             // catch这两个操作的原因，失败之后不至于数据会回滚，
@@ -64,7 +68,7 @@ public class TSendMessageServiceImpl extends ServiceImpl<TSendMessageMapper, TSe
             // 发送消息到mq
             messageService.sendMessage(sendMessage.getContent());
             // 修改消息状态为已发送
-            this.updateSendFlag(sendMessage.getMsgId(), 1);
+            this.updateSendFlag(sendMessage.getMsgId(), CommonJudgeEnum.YES.getId());
         } catch (Exception e){
             e.printStackTrace();
         }

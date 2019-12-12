@@ -13,4 +13,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITSysUserService extends IService<TSysUser> {
 
+    /**
+     * 根据id用户信息
+     */
+    void updateAllColumnById(TSysUser entity);
+
 }

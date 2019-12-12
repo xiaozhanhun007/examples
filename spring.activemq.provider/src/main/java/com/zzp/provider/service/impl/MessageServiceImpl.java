@@ -16,10 +16,12 @@ public class MessageServiceImpl implements IMessageService {
     @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
 
+    @Override
     public void sendMessage(String destinationName, String msg) {
         jmsMessagingTemplate.convertAndSend(destinationName, msg);
     }
 
+    @Override
     public void sendMessage(String msg) {
         this.sendMessage("test_queue", msg);
     }

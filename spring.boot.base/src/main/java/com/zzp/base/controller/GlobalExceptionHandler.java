@@ -25,6 +25,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = RuntimeException.class)
     @ResponseBody
     public Object handleBadRequest(HttpServletRequest request, HttpServletResponse response, RuntimeException e) {
+        e.printStackTrace();
         return "运行时异常";
     }
 

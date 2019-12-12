@@ -26,4 +26,6 @@ public interface ITSendMessageService extends IService<TSendMessage> {
      */
     void updateSendFlag(String msgId, Integer sendFlag);
 
+    void sendMqAndUpdateSendFlag(TSendMessage sendMessage);
+
 }

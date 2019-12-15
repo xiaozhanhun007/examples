@@ -9,6 +9,8 @@ import com.zzp.provider.mapper.TSendMessageMapper;
 import com.zzp.provider.service.IMessageService;
 import com.zzp.provider.service.ITSendMessageService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,8 @@ import java.util.Date;
  */
 @Service
 public class TSendMessageServiceImpl extends ServiceImpl<TSendMessageMapper, TSendMessage> implements ITSendMessageService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private IMessageService messageService;
@@ -71,6 +75,7 @@ public class TSendMessageServiceImpl extends ServiceImpl<TSendMessageMapper, TSe
             this.updateSendFlag(sendMessage.getMsgId(), CommonJudgeEnum.YES.getId());
         } catch (Exception e){
             e.printStackTrace();
+            logger.error("sendMqAndUpdateSendFlag出现异常，msgId：" + sendMessage.getMsgId() + "，sendMessage：" + JSON.toJSONString(sendMessage));
         }
     }
 }

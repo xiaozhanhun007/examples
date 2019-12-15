@@ -7,6 +7,7 @@ import com.zzp.provider.entity.TCoupon;
 import com.zzp.provider.entity.TSysUser;
 import com.zzp.provider.service.IMessageService;
 import com.zzp.provider.service.ITCouponService;
+import com.zzp.provider.service.ITSendMessageService;
 import com.zzp.provider.service.ITSysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,19 +37,18 @@ public class ProviderController {
     @Autowired
     private IMessageService messageService;
 
+    @Autowired
+    private ITSendMessageService sendMessageService;
+
     @RequestMapping(value = "/sendMessage", method = RequestMethod.GET)
     @ResponseBody
     public TCoupon sendMessage() {
-        TSysUser sysUser = sysUserService.getById(1);
-        sysUser.setAge(null);
-        sysUserService.updateAllColumnById(sysUser);
         TCoupon coupon = couponService.getById(1);
-//        Message<TCoupon> msg = new Message<TCoupon>();
-//        msg.setType("Coupon");
-//        msg.setData(coupon);
-//        msg.setMsgId(StringUtils.UUID());
-//        msg.setMsgId("0681171f156a4129bf33f1e5296test1");
-//        messageService.sendMessage(JSON.toJSONString(msg));
+        Message<TCoupon> msg = new Message<TCoupon>();
+        msg.setType("Coupon");
+        msg.setData(coupon);
+        msg.setMsgId(StringUtils.UUID());
+        sendMessageService.saveMessageAndSendMq(msg);
         return coupon;
     }
 

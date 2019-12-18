@@ -22,6 +22,21 @@ public class Message<T> implements Serializable {
 
     private String type;
 
+    /**
+     * 消息来源系统
+     */
+    private String sourceSystem;
+
+    /**
+     * 消息类型
+     */
+    private String queueType;
+
+    /**
+     * 消息队列名称
+     */
+    private String queueName;
+
     private T data;
 
 }

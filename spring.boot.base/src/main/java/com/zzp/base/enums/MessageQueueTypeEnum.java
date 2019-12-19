@@ -5,7 +5,7 @@ package com.zzp.base.enums;
  * @Author Garyzeng
  * @since 2019.12.18
  **/
-public enum MessageQueueType {
+public enum MessageQueueTypeEnum {
 
     QUEUE("queue", "点对点"),
     TOPIC("topic", "订阅/发布");
@@ -14,7 +14,7 @@ public enum MessageQueueType {
 
     private String description;
 
-    private MessageQueueType(String name, String description) {
+    private MessageQueueTypeEnum(String name, String description) {
         this.name = name;
         this.description = description;
     }

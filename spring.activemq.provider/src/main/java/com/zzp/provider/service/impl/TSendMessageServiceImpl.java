@@ -61,16 +61,16 @@ public class TSendMessageServiceImpl extends ServiceImpl<TSendMessageMapper, TSe
 
     @Override
     public void sendMqAndUpdateSendFlag(TSendMessage sendMessage) {
+        // 发送消息到mq
+        messageService.sendMessage(sendMessage.getContent());
         try {
-            // catch这两个操作的原因，失败之后不至于数据会回滚，
+            // catch这个操作的原因，失败之后不至于数据会回滚，
             // 如果发送失败，后续定时器会定时检查发送状态为未发送的消息，再次将其发送到mq
             // 失败情况如下：
             // 1、发送mq失败，则不会执行修改状态操作
             // 2、发送mq成功，但是修改状态失败（状态还是未发送），
-            // 如果mq消息已经被消费者消费了，后续定时器再次发送该消息的话，消费者对消息支持幂等，所以不会重复消费
+            // 如果mq消息已经被消费者消费了，后续定时器再次发送该消息的话，消费者对消息消费保证幂等，所以不会重复消费
 
-            // 发送消息到mq
-            messageService.sendMessage(sendMessage.getContent());
             // 修改消息状态为已发送
             this.updateSendFlag(sendMessage.getMsgId(), CommonJudgeEnum.YES.getId());
         } catch (Exception e){

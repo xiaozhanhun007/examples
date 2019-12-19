@@ -37,8 +37,14 @@ public class SendMessageTask {
         if (sendMessages != null && sendMessages.size() > 0) {
             for (int i = 0; i < sendMessages.size(); i++) {
                 TSendMessage sendMessage = sendMessages.get(i);
-                sendMessageService.sendMqAndUpdateSendFlag(sendMessage);
-                logger.info("发送消息到mq任务，msgId：" + sendMessage.getMsgId() + "，sendMessage：" + JSON.toJSONString(sendMessage) + "，发送成功");
+                try {
+                    sendMessageService.sendMqAndUpdateSendFlag(sendMessage);
+                    logger.info("发送消息到mq任务，msgId：" + sendMessage.getMsgId() + "，sendMessage：" + JSON.toJSONString(sendMessage) + "，发送成功");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    logger.info("发送消息到mq任务，msgId：" + sendMessage.getMsgId() + "，sendMessage：" + JSON.toJSONString(sendMessage) + "，发送失败，异常信息：" + e.getMessage());
+                }
+
             }
         } else {
             logger.info("发送消息到mq任务，sendMessages列表为空");

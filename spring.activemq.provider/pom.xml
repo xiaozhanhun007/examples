@@ -31,12 +31,6 @@
 
         <dependency>
             <groupId>com.zzp</groupId>
-            <artifactId>spring.boot.base.api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.zzp</groupId>
             <artifactId>spring.boot.base</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

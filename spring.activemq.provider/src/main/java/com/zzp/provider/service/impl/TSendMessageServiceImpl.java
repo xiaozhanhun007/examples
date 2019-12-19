@@ -75,7 +75,7 @@ public class TSendMessageServiceImpl extends ServiceImpl<TSendMessageMapper, TSe
             this.updateSendFlag(sendMessage.getMsgId(), CommonJudgeEnum.YES.getId());
         } catch (Exception e){
             e.printStackTrace();
-            logger.error("sendMqAndUpdateSendFlag出现异常，msgId：" + sendMessage.getMsgId() + "，sendMessage：" + JSON.toJSONString(sendMessage));
+            logger.error("sendMqAndUpdateSendFlag更新消息状态出现异常，msgId：" + sendMessage.getMsgId() + "，sendMessage：" + JSON.toJSONString(sendMessage));
         }
     }
 }

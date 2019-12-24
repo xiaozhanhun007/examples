@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzp.base.enums.CommonJudgeEnum;
 import com.zzp.base.mq.msg.vo.Message;
+import com.zzp.base.transaction.callback.CallBackService;
 import com.zzp.provider.entity.TSendMessage;
 import com.zzp.provider.mapper.TSendMessageMapper;
 import com.zzp.provider.service.IMessageService;
@@ -33,6 +34,9 @@ public class TSendMessageServiceImpl extends ServiceImpl<TSendMessageMapper, TSe
     @Autowired
     private IMessageService messageService;
 
+    @Autowired
+    private CallBackService callBackService;
+
     @Transactional
     @Override
     public void saveMessageAndSendMq(Message message) {
@@ -57,6 +61,10 @@ public class TSendMessageServiceImpl extends ServiceImpl<TSendMessageMapper, TSe
             oldSendMessage.setSendFlag(sendFlag);
             this.updateById(oldSendMessage);
         }
+        callBackService.execute(() -> {
+            logger.info("事务完成之后的回调方法");
+
+        });
     }
 
     @Override

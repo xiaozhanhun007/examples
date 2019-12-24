@@ -1,10 +1,9 @@
 package com.zzp.provider.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.string.util.StringUtils;
+import com.zzp.base.enums.CommonJudgeEnum;
 import com.zzp.base.mq.msg.vo.Message;
 import com.zzp.provider.entity.TCoupon;
-import com.zzp.provider.entity.TSysUser;
 import com.zzp.provider.service.IMessageService;
 import com.zzp.provider.service.ITCouponService;
 import com.zzp.provider.service.ITSendMessageService;
@@ -50,6 +49,13 @@ public class ProviderController {
         msg.setMsgId(StringUtils.UUID());
         sendMessageService.saveMessageAndSendMq(msg);
         return coupon;
+    }
+
+    @RequestMapping(value = "/updateSendFlag", method = RequestMethod.GET)
+    @ResponseBody
+    public String updateSendFlag() {
+        sendMessageService.updateSendFlag("f1a5983a195b467c8472fd7ad5c41de3", CommonJudgeEnum.NO.getId());
+        return "修改成功";
     }
 
 }

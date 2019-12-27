@@ -1,5 +1,6 @@
 package com.zzp.base.controller;
 
+import com.zzp.base.exceptions.FeignApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -21,6 +22,13 @@ import javax.servlet.http.HttpServletResponse;
 public class GlobalExceptionHandler {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @ExceptionHandler(value = FeignApiException.class)
+    @ResponseBody
+    public void handleBadRequest(HttpServletRequest request, HttpServletResponse response, FeignApiException e) {
+        e.printStackTrace();
+        throw e;
+    }
 
     @ExceptionHandler(value = RuntimeException.class)
     @ResponseBody

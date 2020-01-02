@@ -14,11 +14,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         String m = (String) msg; // (1)
-        try {
-            System.out.println(m);
-            ctx.close();
-        } finally {
-        }
+        System.out.println(m);
     }
 
     @Override
@@ -32,4 +28,5 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         super.channelActive(ctx);
         System.out.println("客户端成功连接服务端");
     }
+
 }

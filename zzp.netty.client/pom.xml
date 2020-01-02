@@ -25,6 +25,7 @@
 
     <properties>
         <netty.version>4.1.44.Final</netty.version>
+        <fastjson.version>1.2.48</fastjson.version>
     </properties>
 
     <dependencies>
@@ -33,6 +34,13 @@
             <artifactId>netty-all</artifactId>
             <version>${netty.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
     </dependencies>
 
 

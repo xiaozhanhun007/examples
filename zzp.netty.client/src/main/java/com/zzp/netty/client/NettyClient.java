@@ -38,30 +38,29 @@ public class NettyClient {
 
     private void doOpen() {
         workerGroup = new NioEventLoopGroup();
+        b = new Bootstrap();
+        b.group(workerGroup);
+        b.channel(NioSocketChannel.class);
+        b.option(ChannelOption.SO_KEEPALIVE, true);
+        b.handler(new ChannelInitializer<SocketChannel>() {
+
+            @Override
+            protected void initChannel(SocketChannel socketChannel) throws Exception {
+                socketChannel.pipeline()
+                        .addLast("decoder", new StringDecoder())
+                        .addLast("encoder", new StringEncoder())
+                        .addLast(new ClientHandler());
+            }
+
+        });
+    }
+
+    private void doConnect() {
         try {
-            b = new Bootstrap();
-            b.group(workerGroup);
-            b.channel(NioSocketChannel.class);
-            b.option(ChannelOption.SO_KEEPALIVE, true);
-            b.handler(new ChannelInitializer<SocketChannel>() {
-
-                @Override
-                protected void initChannel(SocketChannel socketChannel) throws Exception {
-                    socketChannel.pipeline()
-                            .addLast(new StringDecoder())
-                            .addLast(new StringEncoder())
-                            .addLast(new ClientHandler());
-                }
-
-            });
             future = b.connect(host, port).sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } finally {
-//            workerGroup.shutdownGracefully();
         }
-
-
     }
 
     public void send(Object msg) {
@@ -69,16 +68,19 @@ public class NettyClient {
         System.out.println("客户端发送消息完毕");
     }
 
-    private void close() {
+    public void close() {
         try {
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            workerGroup.shutdownGracefully();
         }
     }
 
     public void run() {
         this.doOpen();
+        this.doConnect();
     }
 
 }

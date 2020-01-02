@@ -36,8 +36,8 @@ public class NettyServer {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
-                                    .addLast(new StringDecoder())
-                                    .addLast(new StringEncoder())
+                                    .addLast("decoder", new StringDecoder())
+                                    .addLast("encoder", new StringEncoder())
                                     .addLast(new DiscardServerHandler());
                         }
                     })

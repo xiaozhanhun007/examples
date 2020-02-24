@@ -11,6 +11,9 @@
     <properties>
         <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
         <activemq.pool.version>5.15.10</activemq.pool.version>
+        <tomcat.embed.jasper.version>9.0.24</tomcat.embed.jasper.version>
+        <jstl.version>1.2</jstl.version>
+        <servlet.version>4.0.1</servlet.version>
     </properties>
 
     <build>
@@ -25,6 +28,25 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <!-- 打包时将jsp文件拷贝到META-INF目录下-->
+            <resource>
+                <!-- 指定resources插件处理哪个目录下的资源文件 -->
+                <directory>src/main/webapp</directory>
+                <!--注意此次必须要放在此目录下才能被访问到-->
+                <targetPath>META-INF/resources</targetPath>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
     </build>
 
     <dependencies>
@@ -54,6 +76,31 @@
             <artifactId>activemq-pool</artifactId>
             <version>${activemq.pool.version}</version>
         </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-thymeleaf</artifactId>-->
+            <!--<version>${spring.boot.version}</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<artifactId>spring-boot-starter</artifactId>-->
+                    <!--<groupId>org.springframework.boot</groupId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+            <version>${tomcat.embed.jasper.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+
     </dependencies>
 
 

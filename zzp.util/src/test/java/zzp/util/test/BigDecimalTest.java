@@ -20,5 +20,9 @@ public class BigDecimalTest {
             System.out.println("不是整数");
         }
 
+        Double d = 28.07899999999999997;
+        BigDecimal bigDecimal = new BigDecimal(d).setScale(4, BigDecimal.ROUND_HALF_UP);
+        System.out.println(bigDecimal.doubleValue());
+
     }
 }

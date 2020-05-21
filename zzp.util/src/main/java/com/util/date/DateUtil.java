@@ -1,11 +1,19 @@
 package com.util.date;
 
+import com.alibaba.fastjson.JSON;
 import com.github.houbb.paradise.common.util.StringUtil;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateParser;
+import org.apache.commons.lang3.time.DateUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 时间工具类
@@ -36,7 +44,10 @@ public class DateUtil {
 //		System.out.println(getLastMonthFirstDay());
 //		System.out.println(getLastMonthLastDay());
 //		System.out.println(getDayByNum("2018-09-30", -7));
-		System.out.println(getMonthLastDay("2018-08-1-01"));
+//		System.out.println(getMonthLastDay("2018-08-1-01"));
+		System.out.println(getNumFutureMonthDate("2018-10-01", 3));
+		System.out.println(compare("2020-01-01", "2020-01-01"));
+		System.out.println(JSON.toJSONString(getDueDates()));
 	}
 	
 	/**
@@ -164,5 +175,56 @@ public class DateUtil {
 		}
 		return date;
 	}
-	
+
+	/**
+	 * 根据date获取num个月之后的日期
+	 * @param date 日期字符串，格式如2020-02-14
+	 * @param num 月数
+	 * @return
+	 */
+	public static String getNumFutureMonthDate(String date, Integer num) {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(DateUtils.parseDate(date, FORMAT_yyyy_MM_dd));
+			calendar.add(Calendar.MONTH, num);
+			return DateFormatUtils.format(calendar.getTime(), FORMAT_yyyy_MM_dd);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * 比较日期date1和日期date2
+	 * @param date1
+	 * @param date2
+	 * @return 如果date1等于date2，则返回值 0；如果date1在date2之前，则返回小于0的值；如果date1在date2之后，则返回大于 0 的值。
+	 */
+	public static Integer compare(String date1, String date2) {
+		try {
+			Date temp1 = DateUtils.parseDate(date1, FORMAT_yyyy_MM_dd);
+			Date temp2 = DateUtils.parseDate(date2, FORMAT_yyyy_MM_dd);
+			return temp1.compareTo(temp2);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private static List<Map<String, String>> getDueDates() {
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		String startDateStr = "2018-01-01";// 只统计此时间及之后的记录
+//		String nowDateStr = DateFormatUtils.format(new Date(), DateUtil.FORMAT_yyyy_MM_dd);
+		String nowDateStr = "2018-04-01";
+		while (compare(nowDateStr, startDateStr) >= 0) {
+			String endDateStr = getNumFutureMonthDate(startDateStr, 3);
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("dueDateStart", startDateStr);
+			map.put("dueDateEnd", endDateStr);
+			list.add(map);
+			startDateStr = endDateStr;
+		}
+		return list;
+	}
+
 }

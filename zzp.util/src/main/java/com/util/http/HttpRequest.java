@@ -8,9 +8,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 import com.util.convert.ConvertUtil;
 import com.util.sort.MapSort;
 
@@ -32,6 +36,29 @@ public class HttpRequest {
 //		params.put("timestamp", "2018-08-29 16:35:36");
 //		params.put("format", "json");
 //		System.out.println(HttpRequest.sendGet("http://api.e6gps.com/public/v3/StatisticsReport/Call", "69411cff-d7be-4458-952f-2fca0267b408", params));
+
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("accessId", "30fcb777-3a23-4258-8bbd-d9c3fca6827c");
+        params.put("accessKey", "13017619-c132-48b8-b746-2b70d17b64f5");
+        params.put("aliyunId", "挚联企业:hoolinks_BI");
+        params.put("validityTime", "60");
+
+        Map<String, String> requestPropertys = new HashMap<String, String>();
+        requestPropertys.put("Content-Type", "application/json");
+
+        String result = HttpRequest.sendGet("https://das.base.shuju.aliyun.com/api/ac3rdservice/token.json", params);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = JSON.parseObject(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (jsonObject != null) {
+            System.out.println(jsonObject.getBoolean("success"));
+        } else {
+            System.out.println("获取token失败");
+        }
+
 
 	}
 	

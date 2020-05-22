@@ -16,6 +16,10 @@ public class VipCustomer extends Customer{
         System.out.println("调用：vipDiscount(Integer vipType)");
     }
 
+    public void vipDiscount(int vipType) {
+        System.out.println("调用：vipDiscount(int vipType)");
+    }
+
     public void vipDiscount(Object vipType) {
         System.out.println("调用：vipDiscount(Object vipType)");
     }

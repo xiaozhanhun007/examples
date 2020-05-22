@@ -11,12 +11,12 @@ public class VipCustomer extends Customer{
         return "否";
     }
 
-    public Integer isVip1(Integer vipSize) {
-        return 1;
+    public void vipDiscount(Integer vipType) {
+        System.out.println("调用：vipDiscount(Integer vipType)");
     }
 
-    public Integer isVip1(int customerName) {
-        return 2;
+    public void vipDiscount(Object vipType) {
+        System.out.println("调用：vipDiscount(Object vipType)");
     }
 
 

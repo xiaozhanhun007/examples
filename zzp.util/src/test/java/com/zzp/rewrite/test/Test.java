@@ -9,7 +9,7 @@ public class Test {
 
     public static void main(String[] args) {
         VipCustomer vipCustomer = new VipCustomer();
-        vipCustomer.vipDiscount(16);
+        vipCustomer.vipDiscount(new Integer(16));
     }
 
 }

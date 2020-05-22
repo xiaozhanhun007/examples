@@ -7,8 +7,9 @@ package com.zzp.rewrite.test;
  **/
 public class VipCustomer extends Customer{
 
+    @Override
     public String isVip(String customerName) {
-        return "否";
+        return "是";
     }
 
     public void vipDiscount(Integer vipType) {

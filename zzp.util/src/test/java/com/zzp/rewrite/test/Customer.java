@@ -7,8 +7,8 @@ package com.zzp.rewrite.test;
  **/
 public class Customer {
 
-    public String isVip(String customerName) {
-        return "是";
+    public Object isVip(String customerName) {
+        return 2;
     }
 
 }

@@ -1,29 +1,31 @@
-[
-  {
-    "id": 66780,
-    "detailSize": 4,
-    "bondInvtNo":"QD577020E000026391",
-    "citDocNo":"QE2020060400000078",
+{
+  "baseData":{
     "companyCode":"4404942811",
     "companyUid":"C1560650171973",
-    "entBillNo":"481JF202293-1"
+    "creatorId":8736,
+    "creatorName":"Cheryzzz"
   },
-  {
-    "id": 66781,
-    "detailSize": 7,
-    "bondInvtNo":"QD577020E000026391Z",
-    "citDocNo":"QE2020060400000078Z",
-    "companyCode":"4404942811Z",
-    "companyUid":"C1560650171973Z",
-    "entBillNo":"481JF202293-1Z"
-  },
-  {
-    "id": 66782,
-    "detailSize": 8,
-    "bondInvtNo":"QD577020E000026391G",
-    "citDocNo":"QE2020060400000078G",
-    "companyCode":"4404942811G",
-    "companyUid":"C1560650171973G",
-    "entBillNo":"481JF202293-1G"
-  }
-]
+  "list":[
+    {
+      "id": 66780,
+      "detailSize": 4,
+      "bondInvtNo":"QD577020E000026391",
+      "citDocNo":"QE2020060400000078",
+      "entBillNo":"481JF202293-1"
+    },
+    {
+      "id": 66781,
+      "detailSize": 7,
+      "bondInvtNo":"QD577020E000026391Z",
+      "citDocNo":"QE2020060400000078Z",
+      "entBillNo":"481JF202293-1Z"
+    },
+    {
+      "id": 66782,
+      "detailSize": 8,
+      "bondInvtNo":"QD577020E000026391G",
+      "citDocNo":"QE2020060400000078G",
+      "entBillNo":"481JF202293-1G"
+    }
+  ]
+}

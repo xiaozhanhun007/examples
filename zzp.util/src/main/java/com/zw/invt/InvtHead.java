@@ -37,6 +37,16 @@ public class InvtHead {
      */
     private String companyUid;
 
+    /**
+     * 创建人id
+     */
+    private Integer creatorId;
+
+    /**
+     * 创建人id名称
+     */
+    private String creatorName;
+
     public Integer getId() {
         return id;
     }
@@ -83,5 +93,21 @@ public class InvtHead {
 
     public void setCompanyUid(String companyUid) {
         this.companyUid = companyUid;
+    }
+
+    public Integer getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Integer creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getCreatorName() {
+        return creatorName;
+    }
+
+    public void setCreatorName(String creatorName) {
+        this.creatorName = creatorName;
     }
 }

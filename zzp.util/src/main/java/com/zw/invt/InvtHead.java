@@ -8,6 +8,11 @@ package com.zw.invt;
 public class InvtHead {
 
     /**
+     * 核注清单表头id
+     */
+    private Integer id;
+
+    /**
      * 计划单号
      */
     private String entBillNo;
@@ -31,6 +36,14 @@ public class InvtHead {
      * 企业Uid
      */
     private String companyUid;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getEntBillNo() {
         return entBillNo;

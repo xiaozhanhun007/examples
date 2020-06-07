@@ -1,17 +1,16 @@
 {
   "baseData":{
-    "companyCode":"4404942811",
-    "companyUid":"C1560650171973",
-    "creatorId":8736,
-    "creatorName":"Chery"
+    "companyCode":"4401482019",
+    "companyUid":"C1547694626077",
+    "creatorId":9342,
+    "creatorName":"陶力雪0001"
   },
   "list":[
     {
-      "id": 69029,
       "detailSize": 4,
-      "bondInvtNo":"QD577020E000026492",
-      "citDocNo":"QE2020060400000076",
-      "entBillNo":"481JF202208"
+      "bondInvtNo":"TESTQD001",
+      "citDocNo":"QE2020060500000001",
+      "entBillNo":"2020-06-05-9_1"
     }
   ]
 }

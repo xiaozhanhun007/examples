@@ -30,4 +30,11 @@ public class InvtHeadController {
         return "success";
     }
 
+    @RequestMapping(value = "/createInvtDetailSQL", method = RequestMethod.GET)
+    @ResponseBody
+    public String createInvtDetailSQL() {
+        invtHeadService.createInvtDetailSQL();
+        return "success";
+    }
+
 }

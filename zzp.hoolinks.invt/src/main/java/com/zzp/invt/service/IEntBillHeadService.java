@@ -13,4 +13,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IEntBillHeadService extends IService<EntBillHead> {
 
+    /**
+     * 根据企业UID和计划单单据编号来查询计划单表头
+     * @param companyUid
+     * @param docNo
+     * @return
+     */
+    EntBillHead getEntBillHead(String companyUid, String docNo);
+
 }

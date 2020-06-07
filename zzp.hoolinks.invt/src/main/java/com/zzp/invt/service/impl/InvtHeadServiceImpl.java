@@ -4,11 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zzp.invt.entity.EntBillHead;
 import com.zzp.invt.entity.InvtHead;
 import com.zzp.invt.entity.vo.BaseDataVo;
 import com.zzp.invt.entity.vo.InvtDetailVo;
 import com.zzp.invt.entity.vo.InvtHeadVo;
 import com.zzp.invt.mapper.InvtHeadMapper;
+import com.zzp.invt.service.IEntBillDetailService;
+import com.zzp.invt.service.IEntBillHeadService;
 import com.zzp.invt.service.IInvtHeadService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -40,6 +43,12 @@ public class InvtHeadServiceImpl extends ServiceImpl<InvtHeadMapper, InvtHead> i
 
     @Autowired
     private InvtHeadMapper invtHeadMapper;
+
+    @Autowired
+    private IEntBillHeadService entBillHeadService;
+
+    @Autowired
+    private IEntBillDetailService entBillDetailService;
 
     public void createInvtHeadSQL() {
         try {
@@ -82,6 +91,33 @@ public class InvtHeadServiceImpl extends ServiceImpl<InvtHeadMapper, InvtHead> i
                 }
 
                 System.out.println();
+                System.out.println();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createRelationSQL() {
+        try {
+            List<InvtHeadVo> invtHeads = this.initInvtHead();
+            if (invtHeads == null || invtHeads.size() <= 0) {
+                System.out.println("核注清单表头信息为空，无法生成脚本SQL");
+                return;
+            }
+            for (int i = 0; i < invtHeads.size(); i++) {
+                InvtHeadVo invtHead = invtHeads.get(i);
+                System.out.println("-- 清单编号：" + invtHead.getBondInvtNo() + "， 平台单证号：" + invtHead.getCitDocNo() + "， 计划单号：" + invtHead.getEntBillNo());
+
+                // 查找计划单
+                EntBillHead entBillHead = entBillHeadService.getEntBillHead(invtHead.getCompanyUid(), invtHead.getEntBillNo());
+                if (entBillHead == null) {
+
+                }
+
+                System.out.println("-- 表头关系");
+                System.out.println("INSERT INTO `essdb`.`dcl_ent_invt_head_relation`(`ent_bill_head_id`, `ent_invt_head_id`, `company_uid`, `company_code`, `creater_id`, `creater_name`, `updater_id`, `updater_name`, `create_time`, `update_time`, `group_uid`, `group_name`, `version`) ");
+                System.out.println("VALUES (55848, 69029, 'C1560650171973', '4404942811', '8738', 'Yanzhi', '8738', 'Yanzhi', NOW(), NOW(), NULL, NULL, NULL);");
                 System.out.println();
             }
         } catch (Exception e) {

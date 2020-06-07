@@ -17,6 +17,16 @@ public interface IInvtHeadService extends IService<InvtHead> {
 
     void createInvtHeadSQL();
 
+    void createInvtDetailSQL();
+
     String getResourceConfig(InputStream resourceInputStream) throws Exception;
+
+    /**
+     * 根据清单编号和企业UID来查询核注清单表头
+     * @param bondInvtNo
+     * @param companyUid
+     * @return
+     */
+    InvtHead getInvtHead(String bondInvtNo, String companyUid);
 
 }

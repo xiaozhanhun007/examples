@@ -19,6 +19,8 @@ public interface IInvtHeadService extends IService<InvtHead> {
 
     void createInvtDetailSQL();
 
+    void createRelationSQL();
+
     String getResourceConfig(InputStream resourceInputStream) throws Exception;
 
     /**

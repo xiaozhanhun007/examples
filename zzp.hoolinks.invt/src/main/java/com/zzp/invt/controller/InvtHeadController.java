@@ -37,4 +37,11 @@ public class InvtHeadController {
         return "success";
     }
 
+    @RequestMapping(value = "/createRelationSQL", method = RequestMethod.GET)
+    @ResponseBody
+    public String createRelationSQL() {
+        invtHeadService.createRelationSQL();
+        return "success";
+    }
+
 }

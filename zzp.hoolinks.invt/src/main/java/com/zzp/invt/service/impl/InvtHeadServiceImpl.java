@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zzp.invt.entity.EntBillDetail;
 import com.zzp.invt.entity.EntBillHead;
 import com.zzp.invt.entity.InvtHead;
 import com.zzp.invt.entity.vo.BaseDataVo;
@@ -105,21 +106,49 @@ public class InvtHeadServiceImpl extends ServiceImpl<InvtHeadMapper, InvtHead> i
                 System.out.println("核注清单表头信息为空，无法生成脚本SQL");
                 return;
             }
+            StringBuffer sql = new StringBuffer();
             for (int i = 0; i < invtHeads.size(); i++) {
                 InvtHeadVo invtHead = invtHeads.get(i);
-                System.out.println("-- 清单编号：" + invtHead.getBondInvtNo() + "， 平台单证号：" + invtHead.getCitDocNo() + "， 计划单号：" + invtHead.getEntBillNo());
+                sql.append("-- 清单编号：" + invtHead.getBondInvtNo() + "， 平台单证号：" + invtHead.getCitDocNo() + "， 计划单号：" + invtHead.getEntBillNo() + "\n");
 
-                // 查找计划单
-                EntBillHead entBillHead = entBillHeadService.getEntBillHead(invtHead.getCompanyUid(), invtHead.getEntBillNo());
-                if (entBillHead == null) {
-
+                // 查找计划单表头
+                EntBillHead entBillHeadVo = entBillHeadService.getEntBillHead(invtHead.getCompanyUid(), invtHead.getEntBillNo());
+                if (entBillHeadVo == null) {
+                    sql.append("-- 计划单表头为空，无法生成脚本SQL\n");
+                    continue;
                 }
 
-                System.out.println("-- 表头关系");
-                System.out.println("INSERT INTO `essdb`.`dcl_ent_invt_head_relation`(`ent_bill_head_id`, `ent_invt_head_id`, `company_uid`, `company_code`, `creater_id`, `creater_name`, `updater_id`, `updater_name`, `create_time`, `update_time`, `group_uid`, `group_name`, `version`) ");
-                System.out.println("VALUES (55848, 69029, 'C1560650171973', '4404942811', '8738', 'Yanzhi', '8738', 'Yanzhi', NOW(), NOW(), NULL, NULL, NULL);");
-                System.out.println();
+                // 查找核注清单表头
+                InvtHead invtHeadVo = this.getInvtHead(invtHead.getBondInvtNo(), invtHead.getCompanyUid());
+                if (invtHeadVo == null) {
+                    sql.append("-- 核注清单表头为空，无法生成脚本SQL\n");
+                    continue;
+                }
+
+                sql.append("-- 表头关系\n");
+                sql.append("INSERT INTO `essdb`.`dcl_ent_invt_head_relation`(`ent_bill_head_id`, `ent_invt_head_id`, `company_uid`, `company_code`, `creater_id`, `creater_name`, `updater_id`, `updater_name`, `create_time`, `update_time`, `group_uid`, `group_name`, `version`) \n");
+                sql.append("VALUES (" + entBillHeadVo.getId() + ", " + invtHeadVo.getId() + ", '" + invtHead.getCompanyUid() + "', '" + invtHead.getCompanyCode() + "', '" + invtHead.getCreatorId() + "', '" + invtHead.getCreatorName() + "', '" + invtHead.getCreatorId() + "', '" + invtHead.getCreatorName() + "', NOW(), NOW(), NULL, NULL, NULL);\n");
+                sql.append("\n");
+
+                sql.append("-- 将计划单的是否已转核注清单状态设置为已转\n");
+                sql.append("UPDATE dcl_ent_bill_detail AS t SET t.is_transform_invt = 1 WHERE t.ent_bill_head_id = " + entBillHeadVo.getId() + ";\n");
+                sql.append("\n");
+
+                // 根据计划单表头id查找计划单表体
+                sql.append("-- 表体关系\n");
+                List<EntBillDetail> entBillDetails = entBillDetailService.listEntBillDetails(entBillHeadVo.getId());
+                if (entBillDetails == null || entBillDetails.size() <= 0) {
+                    sql.append("-- 计划单表体为空，无法生成脚本SQL\n");
+                    continue;
+                }
+                for (int j = 0; j < entBillDetails.size(); j++) {
+                    EntBillDetail entBillDetail = entBillDetails.get(i);
+                    sql.append("INSERT INTO `essdb`.`dcl_ent_invt_detail_relation`(`ent_bill_detail_id`, `ent_invt_detail_id`, `company_uid`, `company_code`, `creater_id`, `creater_name`, `updater_id`, `updater_name`, `create_time`, `update_time`, `group_uid`, `group_name`, `version`) \n");
+                    sql.append("VALUES ('" + entBillDetail.getId() + "','','" + invtHead.getCompanyUid() + "', '" + invtHead.getCompanyCode() + "', '" + invtHead.getCreatorId() + "', '" + invtHead.getCreatorName() + "', '" + invtHead.getCreatorId() + "', '" + invtHead.getCreatorName() + "', NOW(), NOW(), NULL, NULL, NULL);\n");
+                }
+                sql.append("\n\n\n\n\n");
             }
+            System.out.println(sql.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

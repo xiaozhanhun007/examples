@@ -3,9 +3,11 @@ package com.zzp.invt.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zzp.invt.entity.EntBillDetail;
 import com.zzp.invt.entity.EntBillHead;
+import com.zzp.invt.entity.InvtDetail;
 import com.zzp.invt.entity.InvtHead;
 import com.zzp.invt.entity.vo.BaseDataVo;
 import com.zzp.invt.entity.vo.InvtDetailVo;
@@ -13,9 +15,10 @@ import com.zzp.invt.entity.vo.InvtHeadVo;
 import com.zzp.invt.mapper.InvtHeadMapper;
 import com.zzp.invt.service.IEntBillDetailService;
 import com.zzp.invt.service.IEntBillHeadService;
+import com.zzp.invt.service.IInvtDetailService;
 import com.zzp.invt.service.IInvtHeadService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.BeanUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -50,6 +53,9 @@ public class InvtHeadServiceImpl extends ServiceImpl<InvtHeadMapper, InvtHead> i
 
     @Autowired
     private IEntBillDetailService entBillDetailService;
+
+    @Autowired
+    private IInvtDetailService invtDetailService;
 
     public void createInvtHeadSQL() {
         try {
@@ -142,9 +148,25 @@ public class InvtHeadServiceImpl extends ServiceImpl<InvtHeadMapper, InvtHead> i
                     continue;
                 }
                 for (int j = 0; j < entBillDetails.size(); j++) {
-                    EntBillDetail entBillDetail = entBillDetails.get(i);
+                    EntBillDetail entBillDetail = entBillDetails.get(j);
+                    Integer gdsSeqno = entBillDetail.getGdsSeqno();// 计划单表体备案序号
+
+                    // 查找对应的核注清单表体
+                    List<InvtDetail> invtDetails = invtDetailService.listInvtDetails(invtHead.getCitDocNo(), invtHead.getCompanyUid(), gdsSeqno);
+                    if (CollectionUtils.isEmpty(invtDetails)) {
+                        // 查询不到核注清单表体明细，需要人工进行判断
+                        sql.append("-- 查询不到核注清单表体明细，需要人工进行判断，计划单表体备案序号：" + gdsSeqno);
+                        continue;
+                    } else if (invtDetails.size() > 1) {
+                        // 计划单表体备案序号对应多个核注清单表体备案序号，需要人工进行判断
+                        sql.append("-- 计划单表体备案序号对应多个核注清单表体备案序号，需要人工进行判断，计划单表体备案序号：" + gdsSeqno + "，核注清单表体备案序号：" + invtDetailService.filterPutrecSeqnos(invtDetails));
+                        continue;
+                    }
+
+                    InvtDetail invtDetail = invtDetails.get(0);
+
                     sql.append("INSERT INTO `essdb`.`dcl_ent_invt_detail_relation`(`ent_bill_detail_id`, `ent_invt_detail_id`, `company_uid`, `company_code`, `creater_id`, `creater_name`, `updater_id`, `updater_name`, `create_time`, `update_time`, `group_uid`, `group_name`, `version`) \n");
-                    sql.append("VALUES ('" + entBillDetail.getId() + "','','" + invtHead.getCompanyUid() + "', '" + invtHead.getCompanyCode() + "', '" + invtHead.getCreatorId() + "', '" + invtHead.getCreatorName() + "', '" + invtHead.getCreatorId() + "', '" + invtHead.getCreatorName() + "', NOW(), NOW(), NULL, NULL, NULL);\n");
+                    sql.append("VALUES ('" + entBillDetail.getId() + "','" + invtDetail.getId() + "','" + invtHead.getCompanyUid() + "', '" + invtHead.getCompanyCode() + "', '" + invtHead.getCreatorId() + "', '" + invtHead.getCreatorName() + "', '" + invtHead.getCreatorId() + "', '" + invtHead.getCreatorName() + "', NOW(), NOW(), NULL, NULL, NULL);\n");
                 }
                 sql.append("\n\n\n\n\n");
             }
@@ -215,6 +237,18 @@ public class InvtHeadServiceImpl extends ServiceImpl<InvtHeadMapper, InvtHead> i
         QueryWrapper<InvtHead> queryWrapper = new QueryWrapper<InvtHead>();
         queryWrapper.eq("company_uid", companyUid);
         queryWrapper.eq("bond_invt_no", bondInvtNo);
+        List<InvtHead> invtHeads = invtHeadMapper.selectList(queryWrapper);
+        if (invtHeads == null || invtHeads.size() <= 0) {
+            return null;
+        }
+        return invtHeads.get(0);
+    }
+
+    @Override
+    public InvtHead getInvtHeadByInnerInvtNo(String etpsInnerInvtNo, String companyUid) {
+        LambdaQueryWrapper<InvtHead> queryWrapper = new LambdaQueryWrapper<InvtHead>();
+        queryWrapper.eq(InvtHead::getEtpsInnerInvtNo, etpsInnerInvtNo);
+        queryWrapper.eq(InvtHead::getCompanyUid, companyUid);
         List<InvtHead> invtHeads = invtHeadMapper.selectList(queryWrapper);
         if (invtHeads == null || invtHeads.size() <= 0) {
             return null;

@@ -37,27 +37,38 @@ public class HttpRequest {
 //		params.put("format", "json");
 //		System.out.println(HttpRequest.sendGet("http://api.e6gps.com/public/v3/StatisticsReport/Call", "69411cff-d7be-4458-952f-2fca0267b408", params));
 
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("accessId", "30fcb777-3a23-4258-8bbd-d9c3fca6827c");
-        params.put("accessKey", "13017619-c132-48b8-b746-2b70d17b64f5");
-        params.put("aliyunId", "挚联企业:hoolinks_BI");
-        params.put("validityTime", "60");
+//        Map<String, String> params = new HashMap<String, String>();
+//        params.put("accessId", "30fcb777-3a23-4258-8bbd-d9c3fca6827c");
+//        params.put("accessKey", "13017619-c132-48b8-b746-2b70d17b64f5");
+//        params.put("aliyunId", "挚联企业:hoolinks_BI");
+//        params.put("validityTime", "60");
+//
+//        Map<String, String> requestPropertys = new HashMap<String, String>();
+//        requestPropertys.put("Content-Type", "application/json");
+//
+//        String result = HttpRequest.sendGet("https://das.base.shuju.aliyun.com/api/ac3rdservice/token.json", params);
+//        JSONObject jsonObject = null;
+//        try {
+//            jsonObject = JSON.parseObject(result);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        if (jsonObject != null) {
+//            System.out.println(jsonObject.getBoolean("success"));
+//        } else {
+//            System.out.println("获取token失败");
+//        }
+
 
         Map<String, String> requestPropertys = new HashMap<String, String>();
         requestPropertys.put("Content-Type", "application/json");
 
-        String result = HttpRequest.sendGet("https://das.base.shuju.aliyun.com/api/ac3rdservice/token.json", params);
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = JSON.parseObject(result);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (jsonObject != null) {
-            System.out.println(jsonObject.getBoolean("success"));
-        } else {
-            System.out.println("获取token失败");
-        }
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("userUid", "U1591150157277");
+        params.put("modulesName", "scm/importPlannedOrder/checkList");
+
+        String result = HttpRequest.sendPost("https://test-bff.hoolinks.com/generateHash/save", JSON.toJSONString(params), requestPropertys);
+        System.out.println(result);
 
 
 	}

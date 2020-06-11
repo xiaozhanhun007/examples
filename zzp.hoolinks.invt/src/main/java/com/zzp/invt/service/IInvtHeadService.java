@@ -31,4 +31,12 @@ public interface IInvtHeadService extends IService<InvtHead> {
      */
     InvtHead getInvtHead(String bondInvtNo, String companyUid);
 
+    /**
+     * 根据内部编号和企业UID来查询核注清单表头
+     * @param etpsInnerInvtNo
+     * @param companyUid
+     * @return
+     */
+    InvtHead getInvtHeadByInnerInvtNo(String etpsInnerInvtNo, String companyUid);
+
 }

@@ -48,6 +48,10 @@ public class DateUtil {
 		System.out.println(getNumFutureMonthDate("2018-10-01", 3));
 		System.out.println(compare("2020-01-01", "2020-01-01"));
 		System.out.println(JSON.toJSONString(getDueDates()));
+
+		System.out.println(getNumDayDate("2020-06-01", 6));
+		System.out.println(JSON.toJSONString(getDateStartAndEndList("2020-01-01", 60)));
+		System.out.println(JSON.toJSONString(getBeforeNowDay(6, false)));
 	}
 	
 	/**
@@ -179,7 +183,7 @@ public class DateUtil {
 	/**
 	 * 根据date获取num个月之后的日期
 	 * @param date 日期字符串，格式如2020-02-14
-	 * @param num 月数
+	 * @param num 月数，正数为未来的月份，负数为过去的月份
 	 * @return
 	 */
 	public static String getNumFutureMonthDate(String date, Integer num) {
@@ -187,6 +191,24 @@ public class DateUtil {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(DateUtils.parseDate(date, FORMAT_yyyy_MM_dd));
 			calendar.add(Calendar.MONTH, num);
+			return DateFormatUtils.format(calendar.getTime(), FORMAT_yyyy_MM_dd);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * 根据date获取num天之后或之前的日期
+	 * @param date date 日期字符串，格式如2020-02-14
+	 * @param num 天数，正数为未来的天数，负数为过去的天数
+	 * @return
+	 */
+	public static String getNumDayDate(String date, Integer num) {
+		try {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(DateUtils.parseDate(date, FORMAT_yyyy_MM_dd));
+			calendar.add(Calendar.DAY_OF_MONTH, num);
 			return DateFormatUtils.format(calendar.getTime(), FORMAT_yyyy_MM_dd);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -225,6 +247,49 @@ public class DateUtil {
 			startDateStr = endDateStr;
 		}
 		return list;
+	}
+
+	/**
+	 * 获取startDate之后且包括当前日期的时间列表
+	 * @param startDate 开始日期，格式如"2020-01-01"
+	 * @param intervalDayNum 间隔的天数
+	 * @return
+	 */
+	public static List<Map<String, String>> getDateStartAndEndList(String startDate, Integer intervalDayNum) {
+		if (intervalDayNum < 0) {
+			throw new RuntimeException("intervalDayNum 不能小于0");
+		}
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		String startDateStr = startDate;// 只统计此时间及之后的记录
+		String nowDateStr = DateFormatUtils.format(new Date(), DateUtil.FORMAT_yyyy_MM_dd);
+		while (compare(nowDateStr, startDateStr) >= 0) {
+			String endDateStr = getNumDayDate(startDateStr, intervalDayNum);
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("dateStart", startDateStr);
+			map.put("dateEnd", endDateStr + " 23:59:59");
+			list.add(map);
+			startDateStr = getNumDayDate(endDateStr, 1);;
+		}
+		return list;
+	}
+
+	/**
+	 * 获得当天之前间隔intervalDayNum天的日期列表
+	 * @param intervalDayNum 间隔日期
+	 * @param containNowDay 是否包含当天
+	 * @return
+	 */
+	public static Map<String, String> getBeforeNowDay(Integer intervalDayNum, boolean containNowDay){
+		if (intervalDayNum > 0) {
+			intervalDayNum = intervalDayNum * -1;
+		}
+		String nowDateStr = DateFormatUtils.format(new Date(), DateUtil.FORMAT_yyyy_MM_dd);
+		String endDate = containNowDay ? nowDateStr : getNumDayDate(nowDateStr, -1);
+		String startDate = getNumDayDate(endDate, intervalDayNum);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("dateStart", startDate);
+		map.put("dateEnd", endDate + " 23:59:59");
+		return map;
 	}
 
 }

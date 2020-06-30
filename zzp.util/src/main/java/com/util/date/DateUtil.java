@@ -46,11 +46,11 @@ public class DateUtil {
 //		System.out.println(getDayByNum("2018-09-30", -7));
 //		System.out.println(getMonthLastDay("2018-08-1-01"));
 		System.out.println(getNumFutureMonthDate("2018-10-01", 3));
-		System.out.println(compare("2020-01-01", "2020-01-01"));
+		System.out.println(betweenDays("2020-01-03", "2020-01-01"));
 		System.out.println(JSON.toJSONString(getDueDates()));
 
 		System.out.println(getNumDayDate("2020-06-01", 6));
-		System.out.println(JSON.toJSONString(getDateStartAndEndList("2020-01-01", 60)));
+		System.out.println(JSON.toJSONString(getDateStartAndEndList("2020-06-23", "2020-06-23", 6)));
 		System.out.println(JSON.toJSONString(getBeforeNowDay(6, false)));
 	}
 	
@@ -233,6 +233,24 @@ public class DateUtil {
 		}
 	}
 
+	/**
+	 * 计算日期date1和日期date2之间相差的天数，date1减去date2
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static Integer betweenDays(String date1, String date2) {
+		try {
+			Date temp1 = DateUtils.parseDate(date1, FORMAT_yyyy_MM_dd);
+			Date temp2 = DateUtils.parseDate(date2, FORMAT_yyyy_MM_dd);
+			Long betweenDays =  (temp1.getTime() - temp2.getTime()) / (1000L*3600L*24L);
+			return betweenDays.intValue();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	private static List<Map<String, String>> getDueDates() {
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		String startDateStr = "2018-01-01";// 只统计此时间及之后的记录
@@ -250,20 +268,34 @@ public class DateUtil {
 	}
 
 	/**
-	 * 获取startDate之后且包括当前日期的时间列表
+	 * 获取startDate之后间隔为intervalDayNum的时间列表，结束日期为当前日期
 	 * @param startDate 开始日期，格式如"2020-01-01"
 	 * @param intervalDayNum 间隔的天数
 	 * @return
 	 */
 	public static List<Map<String, String>> getDateStartAndEndList(String startDate, Integer intervalDayNum) {
+		String nowDateStr = DateFormatUtils.format(new Date(), DateUtil.FORMAT_yyyy_MM_dd);
+		return getDateStartAndEndList(startDate, nowDateStr, intervalDayNum);
+	}
+
+	/**
+	 * 获取startDate之后间隔为intervalDayNum的时间列表，结束日期为endDate
+	 * @param startDate 开始日期，格式如"2020-01-01"
+	 * @param endDate 结束日期，格式如"2020-02-01"
+	 * @param intervalDayNum 间隔的天数
+	 * @return
+	 */
+	public static List<Map<String, String>> getDateStartAndEndList(String startDate, String endDate, Integer intervalDayNum) {
 		if (intervalDayNum < 0) {
 			throw new RuntimeException("intervalDayNum 不能小于0");
 		}
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		String startDateStr = startDate;// 只统计此时间及之后的记录
-		String nowDateStr = DateFormatUtils.format(new Date(), DateUtil.FORMAT_yyyy_MM_dd);
+		String nowDateStr = endDate;
 		while (compare(nowDateStr, startDateStr) >= 0) {
-			String endDateStr = getNumDayDate(startDateStr, intervalDayNum);
+			Integer tempIntervalDayNum = betweenDays(nowDateStr, startDateStr);
+			tempIntervalDayNum = tempIntervalDayNum >= intervalDayNum ? intervalDayNum : tempIntervalDayNum;
+			String endDateStr = getNumDayDate(startDateStr, tempIntervalDayNum);
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("dateStart", startDateStr);
 			map.put("dateEnd", endDateStr + " 23:59:59");

@@ -1,6 +1,8 @@
 package com.zzp;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
+import com.zzp.provider.hooks.JvmShutdownHook;
+import com.zzp.provider.hooks.ProviderShutdownHook;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,9 @@ import javax.jms.ConnectionFactory;
 public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);  
+		SpringApplication.run(Application.class, args);
+		Runtime.getRuntime().addShutdownHook(new ProviderShutdownHook());
+        Runtime.getRuntime().addShutdownHook(new JvmShutdownHook());
 	}
 
     @Autowired

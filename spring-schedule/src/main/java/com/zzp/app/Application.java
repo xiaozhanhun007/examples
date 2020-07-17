@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @Configuration  
 @EnableAutoConfiguration  
-@ComponentScan
+@ComponentScan(basePackages = {"com.zzp.app", "com.zzp.etl"})
 @EnableScheduling
 public class Application {
 

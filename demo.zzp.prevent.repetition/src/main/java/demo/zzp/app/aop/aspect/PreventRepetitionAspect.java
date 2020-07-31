@@ -58,7 +58,8 @@ public class PreventRepetitionAspect {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("执行防止重复提交功能AOP失败，原因：" + e.getMessage());
-			return JsonBuilder.toJson(false, "操作失败！", "执行防止重复提交功能AOP失败，原因：" + e.getMessage());
+			return "操作失败！"+ "执行防止重复提交功能AOP失败，原因：" + e.getMessage();
+		//	return JsonBuilder.toJson(false, "操作失败！", "执行防止重复提交功能AOP失败，原因：" + e.getMessage());
 		}
 	}
 	

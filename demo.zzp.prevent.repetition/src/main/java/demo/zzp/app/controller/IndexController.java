@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.com.rlid.utils.json.JsonBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +38,7 @@ public class IndexController {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		return JsonBuilder.toJson(true, "保存成功！",null);
+	 	return "sss";
 	}
 	
 }
